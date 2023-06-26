@@ -1,9 +1,14 @@
-let x = 16;
+
+const QUANTIDADE = 6;
+
+calcularImpares(16)
+function calcularImpares(inicial) {
 let numerosImpares = 0;
-while (numerosImpares < 6) {
-    if (x % 2 === 1) {
-        console.log(x);
+while (numerosImpares < QUANTIDADE) {
+    if (inicial % 2 === 1) {
+        console.log(inicial);
         numerosImpares++
     }
-    x++;
+    inicial++;
+}
 }
