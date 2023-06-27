@@ -6,6 +6,7 @@ console.log(multiplos(numUm,numDois));
 function multiplos(numUm,numDois) {
     let maior = 0;
     let menor = 0;
+    let soma = 0;
     if(numUm<numDois) {
         maior = numDois;
         menor = numUm;
@@ -13,7 +14,6 @@ function multiplos(numUm,numDois) {
         maior = numUm;
         menor = numDois;
     }
-    let soma = 0;
     for (let i = menor; i <= maior; i++) {
         if(i % 13 !== 0 ) {
         soma+=i;
