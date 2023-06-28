@@ -23,15 +23,15 @@ try {
     console.log("Acabou!")
 }
 
-// rl.question('Digite um número: ', (data) => {
-//   try {
-//     console.log("soma:", soma(Number(data)));
-//     rl.close();
-//   } catch (error) {
-//     console.log(error.message);
-//     rl.close();
-//   }
-// });
+rl.question('Digite um número: ', (data) => {
+  try {
+    console.log("soma:", soma(Number(data)));
+    rl.close();
+  } catch (error) {
+    console.log(error.message);
+    rl.close();
+  }
+});
 
 
 
