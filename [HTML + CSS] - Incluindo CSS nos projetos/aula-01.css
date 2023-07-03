@@ -1,0 +1,17 @@
+main {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+}
+
+.div-test {
+    background-color: pink;
+    width: 100px;
+    height: 100px;
+}
+
+#id-test{
+    background-color: yellow;
+    width: 100px;
+    height: 100px;
+}
