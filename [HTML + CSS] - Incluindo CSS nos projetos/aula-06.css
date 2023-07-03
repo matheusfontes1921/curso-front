@@ -1,0 +1,18 @@
+body{
+    margin: 0;
+}
+.menu-left {
+    height: 100vh;
+    background-color: blue;
+    width: 200px;
+    float: left; /*quando coloca float, os outros elementos se adaptam em relação a esse.
+                * já quando é absolute, o resto será sobscrito
+                */
+}
+
+.menu-right {
+    background-color: red;
+    width: 200px;
+    height: 100vh;
+    float: right;
+}
