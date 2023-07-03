@@ -1,0 +1,16 @@
+body{
+    margin: 0;
+}
+main{
+    background-color: blue;
+    margin: 0px auto;
+    height: 300px;
+    width: 90%;
+
+    /*max-height: 300px;*/
+    max-width: 300px;
+
+}
+input{
+    width: 100%;
+}
