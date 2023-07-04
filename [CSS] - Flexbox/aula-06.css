@@ -1,0 +1,35 @@
+.stretch{
+    align-items: stretch; /*default*/
+}
+.center{
+    align-items: center;
+}
+.flex-start{
+    align-items: flex-start;
+}
+.flex-end{
+    align-items: flex-end;
+}
+.baseline{
+    align-items: baseline;
+}
+.column{
+    flex-direction: column;
+}
+
+
+.container{
+    display: flex;
+    margin: 8px auto;
+    width:400px;
+    border: 2px dashed blue;
+}
+
+.item {
+    margin: 8px;
+    background-color: red;
+}
+
+.item:first-child {
+    padding-top:20px;
+}
