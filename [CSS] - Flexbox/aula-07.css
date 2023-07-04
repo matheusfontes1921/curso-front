@@ -1,0 +1,35 @@
+.stretch {
+    align-content: stretch;
+}
+.flex-start {
+    align-content: flex-start;
+}
+.flex-end {
+    align-content: flex-end;
+}
+.flex-center{
+    align-content: center;
+}
+.flex-space-between{
+    align-content: space-between;
+}
+.flex-space-around{
+    align-content: space-around;
+}
+
+.container {
+    width: 400px;
+    margin: 8px auto;
+    height: 500px;
+    display: flex;
+    border: 2px dotted red;
+    flex-wrap: wrap;
+}
+
+.item{
+    background-color: blue;
+    margin: 8px;
+    flex: 1;
+    font-size: 24px;
+    text-align: center;
+}
