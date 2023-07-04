@@ -1,0 +1,38 @@
+.flex-start{
+    justify-content: flex-start; /*default*/
+}
+.flex-end {
+    justify-content: flex-end;
+}
+.flex-center{
+    justify-content: center;
+}
+.flex-space-between{
+    justify-content: space-between;
+}
+.flex-space-around{
+    justify-content: space-around;
+}
+.flex-direction-row{
+    flex-direction: row; /*default*/
+}
+.flex-direction-colum{
+    flex-direction: column;
+}
+.container{
+    width: 400px;
+    margin: 8px auto;
+    border: 1px solid blue;
+    padding: 8px;
+    display: flex;
+
+}
+
+.item{
+    background-color: red;
+    text-align: center;
+    margin: 8px;
+    /*default
+    * justify-content: flex-start
+     */
+}
