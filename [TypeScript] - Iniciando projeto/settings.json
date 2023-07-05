@@ -7,5 +7,5 @@
   "code-runner.executorMap": {
     "typescript": "clear && npx ts-node --files"
   },
-  "code-runner.runInTerminal": true
+  "code-runner.runInTerminal": false
 }
