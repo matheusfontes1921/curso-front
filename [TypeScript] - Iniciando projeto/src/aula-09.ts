@@ -1,5 +1,5 @@
 type MarcaBicicleta = "Caloi" | "Teste" | "Bike";
-
+/* type e enum são a mesma coisa */
 interface Bicicleta {
     marca: MarcaBicicletaDois
 }
@@ -17,6 +17,6 @@ if (bicicleta.marca === "Caloi") {
     console.log("é caloi")
 }
 
-if (bicicleta.marca === "Caloi") {
+if (bicicleta.marca === MarcaBicicletaDois.CALOI) {
     console.log("é caloi")
 }
