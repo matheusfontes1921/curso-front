@@ -5,6 +5,7 @@ import {
     LimitedContainer,
     LogoImage
 } from "../styles/loginScreen.styles";
+import Input from "../../../shared/input/input/Input.tsx";
 const LoginScreen = () => {
     return (
         <ContainerLoginScreen>
@@ -12,6 +13,8 @@ const LoginScreen = () => {
             <ContainerLogin>
                 <LimitedContainer>
                 <LogoImage src="/icon.png" />
+                    <Input title={"Usuário"}/>
+                    <Input title={"Senha"}/>
                 </LimitedContainer>
             </ContainerLogin>
         </ContainerLoginScreen>

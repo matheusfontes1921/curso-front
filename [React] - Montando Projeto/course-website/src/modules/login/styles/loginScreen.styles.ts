@@ -38,5 +38,5 @@ export const LimitedContainer = styled.div`
   width: 100%;
   max-width: 498px;
   justify-content: center;
-  
+  flex-direction: column;
 `;
