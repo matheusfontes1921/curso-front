@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import {useGlobalContext} from "./useGlobalContext";
 
 const useRequests = () => {
   const [loading, setLoading] = useState(false);
+  const { setNotification } = useGlobalContext();
   const getRequest = async (url: string) => {
     setLoading(true);
     return await axios({
@@ -13,7 +15,7 @@ const useRequests = () => {
         return result.data;
       })
       .catch(() => {
-        alert("Erro");
+        setNotification("Senha inválida", "error");
       });
   };
   const postRequest = async (url: string, body: any) => {
@@ -24,11 +26,11 @@ const useRequests = () => {
       data: body,
     })
       .then((result) => {
-        alert(`Fez login ${result.data.accessToken}`);
+        setNotification(`Login realizado pelo usuário`, "success");
         return result.data;
       })
       .catch(() => {
-        alert("Usuário errado");
+        setNotification("Senha inválida", "error");
       });
     setLoading(false);
     return returnData;
