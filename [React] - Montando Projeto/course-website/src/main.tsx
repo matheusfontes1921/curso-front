@@ -6,6 +6,7 @@ import { createBrowserRouter, RouteObject, RouterProvider} from "react-router-do
 import { Router as RemixRouter } from "@remix-run/router";
 import LoginScreen from "./modules/login/screens/LoginScreen";
 import { loginRoutes } from "./modules/login/routes";
+import {GlobalProvider} from "./shared/hooks/useGlobalContext";
 export const rootRoutes: RouteObject[] = [
   {
     path: "/",
@@ -18,6 +19,8 @@ const router: RemixRouter = createBrowserRouter([/*...rootRoutes,*/ ...loginRout
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <GlobalProvider>
+      <RouterProvider router={router} />
+    </GlobalProvider>
   </React.StrictMode>,
 );
