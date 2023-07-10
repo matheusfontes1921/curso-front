@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import {useGlobalContext} from "./useGlobalContext";
-
+import { useGlobalContext } from "./useGlobalContext";
+import { connectionAPIPost } from "../functions/connection/connectionAPI";
 const useRequests = () => {
   const [loading, setLoading] = useState(false);
   const { setNotification } = useGlobalContext();
@@ -18,19 +18,15 @@ const useRequests = () => {
         setNotification("Senha inválida", "error");
       });
   };
-  const postRequest = async (url: string, body: any) => {
+  const postRequest = async (url: string, body: unknown) => {
     setLoading(true);
-    const returnData = await axios({
-      method: "post",
-      url: url,
-      data: body,
-    })
+    const returnData = await connectionAPIPost(url, body)
       .then((result) => {
         setNotification(`Login realizado pelo usuário`, "success");
-        return result.data;
+        return result;
       })
-      .catch(() => {
-        setNotification("Senha inválida", "error");
+      .catch((error: Error) => {
+        setNotification(error.message, "error");
       });
     setLoading(false);
     return returnData;
