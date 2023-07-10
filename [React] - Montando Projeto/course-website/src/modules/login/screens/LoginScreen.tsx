@@ -12,31 +12,23 @@ import {useState} from "react";
 import login from "../index";
 import axios from "axios";
 import SVGHome from "../../../shared/icons/SVGHome";
+import useRequests from "../../../shared/hooks/useRequests";
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+    const { postRequest, loading } = useRequests();
     const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     }
     const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     }
-    const handleLogin = async () => {
-        const returnObject = await axios({
-            method: "post",
-            url: "http://localhost:8080/auth",
-            data: {
-                email: email,
-                password: password,
-            },
-        }).then((result) => {
-            alert(`Fez login ${result.data.accessToken}`);
-            return result.data;
-        }).catch(() => {
-            alert("Usuário errado")
+    const handleLogin = () => {
+        postRequest("http://localhost:8080/auth", {
+            email: email,
+            password: password,
         });
-        console.log(returnObject)
-    }
+    };
     return (
         <ContainerLoginScreen>
             <BackgroudnImage src="/background.png" />
@@ -46,7 +38,7 @@ const LoginScreen = () => {
                     <TitleLogin level={2}>Login</TitleLogin>
                     <Input title={"Usuário"} margin={"32px 0px 0px"} onChange={handleEmail} value={email}/>
                     <Input type="password" title={"Senha"} margin={"32px 0px 0px"} onChange={handlePassword} value={password}/>
-                    <Button type="primary" margin="64px 0px 16px 0px" onClick={handleLogin}>Entrar</Button>
+                    <Button loading={loading} type="primary" margin="64px 0px 16px 0px" onClick={handleLogin}>Entrar</Button>
                 </LimitedContainer>
             </ContainerLogin>
         </ContainerLoginScreen>
