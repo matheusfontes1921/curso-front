@@ -10,24 +10,20 @@ import Input from "../../../shared/input/input/Input.tsx";
 import { TitleInput } from "../../../shared/input/input/input.styles";
 import Button from "../../../shared/button/button/Button";
 import { useContext, useState } from "react";
-import login from "../index";
-import axios from "axios";
 import SVGHome from "../../../shared/icons/SVGHome";
 import useRequests from "../../../shared/hooks/useRequests";
-import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
-import {UserType} from "../types/UserType";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { postRequest, loading } = useRequests();
+  const { authRequest, loading } = useRequests();
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
-  const handleLogin =  () => {
-     postRequest<UserType>("http://localhost:8080/auth", {
+  const handleLogin = () => {
+    authRequest({
       email: email,
       password: password,
     });
