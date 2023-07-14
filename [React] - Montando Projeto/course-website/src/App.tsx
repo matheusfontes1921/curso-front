@@ -5,6 +5,8 @@ import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-d
 import { loginRoutes } from "./modules/login/routes";
 import { GlobalProvider } from "./shared/hooks/useGlobalContext";
 import { useNotification } from "./shared/hooks/useNotification";
+import {firstScreenRoutes} from "./modules/firstScreen/routes";
+import {productRoutes} from "./modules/product/routes";
 export const rootRoutes: RouteObject[] = [
   {
     path: "/",
@@ -13,7 +15,7 @@ export const rootRoutes: RouteObject[] = [
   },
 ];
 
-const router: RemixRouter = createBrowserRouter([...rootRoutes, ...loginRoutes]);
+const router: RemixRouter = createBrowserRouter([...firstScreenRoutes, ...loginRoutes, ...productRoutes]);
 function App() {
   const { contextHolder } = useNotification();
   return (

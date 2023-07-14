@@ -17,7 +17,6 @@ import useRequests from "../../../shared/hooks/useRequests";
 import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
 import {UserType} from "../types/UserType";
 const LoginScreen = () => {
-  const { accessToken, setAccessToken } = useGlobalContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { postRequest, loading } = useRequests();
@@ -27,13 +26,11 @@ const LoginScreen = () => {
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
-  const handleLogin = async () => {
-    const user = await postRequest<UserType>("http://localhost:8080/auth", {
+  const handleLogin =  () => {
+     postRequest<UserType>("http://localhost:8080/auth", {
       email: email,
       password: password,
     });
-      setAccessToken(user?.accessToken || '');
-
   };
   return (
     <ContainerLoginScreen>
@@ -41,7 +38,7 @@ const LoginScreen = () => {
       <ContainerLogin>
         <LimitedContainer>
           <SVGHome /*possível passar css por aq*/ />
-          <TitleLogin level={2}>Login ({accessToken})</TitleLogin>
+          <TitleLogin level={2}>Login</TitleLogin>
           <Input title={"Usuário"} margin={"32px 0px 0px"} onChange={handleEmail} value={email} />
           <Input
             type="password"
