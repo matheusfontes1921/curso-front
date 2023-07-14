@@ -18,15 +18,16 @@ const useRequests = () => {
         setNotification("Senha inválida", "error");
       });
   };
-  const postRequest = async (url: string, body: unknown) => {
+  const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
     setLoading(true);
-    const returnData = await connectionAPIPost(url, body)
+    const returnData = await connectionAPIPost<T>(url, body)
       .then((result) => {
         setNotification(`Login realizado pelo usuário`, "success");
         return result;
       })
       .catch((error: Error) => {
         setNotification(error.message, "error");
+        return undefined;
       });
     setLoading(false);
     return returnData;
