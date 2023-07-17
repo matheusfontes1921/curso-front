@@ -59,7 +59,6 @@ await connectionAPIPost<AuthType>(URL_AUTH, body)
   return {
     loading,
     request,
-    postRequest,
     authRequest,
   };
 };
