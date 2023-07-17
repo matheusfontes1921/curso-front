@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { getAuthorizationToken, setAuthorizationToken } from "../functions/connection/auth";
+import { UserType } from "../../modules/login/types/UserType";
+import { notification } from "antd";
 type NotificationType = "success" | "info" | "warning" | "error";
 interface NotificationProps {
   message: string;
@@ -7,6 +9,7 @@ interface NotificationProps {
   description?: string;
 }
 interface GlobalData {
+  user?: UserType;
   notification?: NotificationProps;
 }
 interface GlobalContextProps {
@@ -30,8 +33,6 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
 export const useGlobalContext = () => {
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
-
-
   const setNotification = (message: string, type: NotificationType, description?: string) => {
     setGlobalData({
       ...globalData,
@@ -41,8 +42,16 @@ export const useGlobalContext = () => {
       },
     });
   };
+  const setUser = (user: UserType) => {
+    setGlobalData({
+      ...globalData,
+      user,
+    });
+  };
   return {
     notification: globalData.notification,
+    user: globalData?.user,
+    setUser,
     setNotification,
   };
 };

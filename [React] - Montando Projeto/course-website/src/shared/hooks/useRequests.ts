@@ -11,7 +11,7 @@ import {AuthType} from "../../modules/login/types/AuthType";
 const useRequests = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { setNotification } = useGlobalContext();
+  const { setNotification, setUser } = useGlobalContext();
   const getRequest = async (url: string) => {
     setLoading(true);
     return await axios({
@@ -43,6 +43,7 @@ const useRequests = () => {
     setLoading(true);
 await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
+        setUser(result.user);
         setNotification(`Entrando`, "success");
         setAuthorizationToken(result.accessToken)
         navigate(ProductRoutesEnum.PRODUCT);
