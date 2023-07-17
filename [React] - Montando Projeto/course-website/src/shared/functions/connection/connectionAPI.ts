@@ -2,32 +2,30 @@ import { MethodsEnum } from "../../enums/methods.enum";
 import axios, {AxiosRequestConfig} from "axios";
 import { ERROR_ACCESS_DENIED, ERROR_CONNECTION } from "../../constants/errorStatus";
 import {getAuthorizationToken} from "./auth";
-
+export type MethodType = 'get' | 'post' | 'put' | 'patch' | 'delete'
 export default class ConnectionAPI {
-  static async call<T>(url: string, method: string, body?: unknown): Promise<T> {
+  static async call<T>(url: string, method: MethodType, body?: unknown): Promise<T> {
     const config: AxiosRequestConfig = {
       headers: {
         Authorization: getAuthorizationToken(),
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
     };
     switch (method) {
       case MethodsEnum.GET:
-        return (await axios.get<T>(url, config)).data;
       case MethodsEnum.DELETE:
-        return (await axios.delete<T>(url, config)).data;
-      case MethodsEnum.POST:
-        return (await axios.post<T>(url, body, config)).data;
-      case MethodsEnum.PUT:
-        return (await axios.put<T>(url, body, config)).data;
-      case MethodsEnum.PATCH:
       default:
-        return (await axios.patch<T>(url, body, config)).data;
+        return (await axios[method]<T>(url, config)).data;
+      case MethodsEnum.POST:
+      case MethodsEnum.PATCH:
+      case MethodsEnum.PUT:
+        return (await axios[method]<T>(url, body, config)).data;
+
     }
   }
   /*static = quando cria a função, ela nunca muda
    * deixa o código mais leve */
-  static async connect<T>(url: string, method: string, body?: unknown): Promise<T> {
+  static async connect<T>(url: string, method: MethodType, body?: unknown): Promise<T> {
     return ConnectionAPI.call<T>(url, method, body).catch((error) => {
       if (error.response) {
         switch (error.response.status) {
