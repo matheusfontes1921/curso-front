@@ -6,4 +6,4 @@ export const ContainerPageNotFound = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-`
+`;

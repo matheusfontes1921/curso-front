@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import useRequests from "../../../shared/hooks/useRequests";
 import { MethodsEnum } from "../../../shared/enums/methods.enum";
 import { ProductType } from "../types/ProductType";
-import {URL_PRODUCT} from "../../../shared/constants/urls";
+import { URL_PRODUCT } from "../../../shared/constants/urls";
 
 const Product = () => {
   const { products, setProducts } = useDataContext();

@@ -1,7 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { getAuthorizationToken, setAuthorizationToken } from "../functions/connection/auth";
 import { UserType } from "../../modules/login/types/UserType";
-import { notification } from "antd";
 type NotificationType = "success" | "info" | "warning" | "error";
 interface NotificationProps {
   message: string;
