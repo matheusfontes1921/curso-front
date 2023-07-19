@@ -1,23 +1,15 @@
-import React, {useEffect} from "react";
-import "./index.css";
 import type { Router as RemixRouter } from "@remix-run/router";
-import { createBrowserRouter, RouteObject, RouterProvider, useNavigate } from "react-router-dom";
-import { loginRoutes } from "./modules/login/routes";
-import { GlobalProvider, useGlobalContext } from "./shared/hooks/useGlobalContext";
-import { useNotification } from "./shared/hooks/useNotification";
+import { useEffect } from "react";
+import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
 import { firstScreenRoutes } from "./modules/firstScreen/routes";
+import { loginRoutes } from "./modules/login/routes";
 import { productRoutes } from "./modules/product/routes";
+import { URL_USER } from "./shared/constants/urls";
+import { MethodsEnum } from "./shared/enums/methods.enum";
 import { verifyLoggedIn } from "./shared/functions/connection/auth";
-import useRequests from "./shared/hooks/useRequests";
-import {URL_USER} from "./shared/constants/urls";
-import {MethodsEnum} from "./shared/enums/methods.enum";
-export const rootRoutes: RouteObject[] = [
-  {
-    path: "/",
-    element: <h1>Tela Principal</h1>,
-    errorElement: <h2>Erro</h2>,
-  },
-];
+import { useGlobalContext } from "./shared/hooks/useGlobalContext";
+import { useNotification } from "./shared/hooks/useNotification";
+import { useRequests } from "./shared/hooks/useRequests";
 
 const routes: RouteObject[] = [...loginRoutes];
 const routesLoggedIn: RouteObject[] = [...productRoutes, ...firstScreenRoutes].map((route) => ({
@@ -27,14 +19,15 @@ const routesLoggedIn: RouteObject[] = [...productRoutes, ...firstScreenRoutes].m
 
 const router: RemixRouter = createBrowserRouter([...routes, ...routesLoggedIn]);
 
-
 function App() {
   const { contextHolder } = useNotification();
   const { setUser } = useGlobalContext();
   const { request } = useRequests();
+
   useEffect(() => {
     request(URL_USER, MethodsEnum.GET, setUser);
-  },[])
+  }, []);
+
   return (
     <>
       {contextHolder}
