@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { getAuthorizationToken, setAuthorizationToken } from "../functions/connection/auth";
 import { UserType } from "../../modules/login/types/UserType";
 import { notification } from "antd";
-import { ProductType } from "../../modules/product/types/ProductType";
+import { ProductType } from "../types/ProductType";
 type NotificationType = "success" | "info" | "warning" | "error";
 
 interface DataContext {
