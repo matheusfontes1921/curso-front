@@ -3,10 +3,12 @@ import { getAuthorizationToken, setAuthorizationToken } from "../functions/conne
 import { UserType } from "../../modules/login/types/UserType";
 import { notification } from "antd";
 import { ProductType } from "../types/ProductType";
+import {CategoryType} from "../types/CategoryType";
 type NotificationType = "success" | "info" | "warning" | "error";
 
 interface DataContext {
   products?: ProductType[];
+  categories?: CategoryType[]
 }
 interface DataContextProps {
   data: DataContext;
@@ -30,8 +32,16 @@ export const useDataContext = () => {
       products,
     })
   }
+  const setCategories = (categories: CategoryType[]) => {
+    setData({
+      ...data,
+      categories,
+    })
+  }
   return {
     products: data?.products || [],
+    categories: data?.categories || [],
     setProducts,
+    setCategories
   };
 };
