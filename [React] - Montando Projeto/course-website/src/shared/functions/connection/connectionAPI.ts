@@ -29,7 +29,8 @@ export default class ConnectionAPI {
     return ConnectionAPI.call<T>(url, method, body).catch((error) => {
       if (error.response) {
         switch (error.response.status) {
-          case 401 || 403:
+          case 401:
+          case 403:
             throw new Error(ERROR_ACCESS_DENIED);
           default:
             throw new Error(ERROR_CONNECTION);
@@ -40,17 +41,21 @@ export default class ConnectionAPI {
   }
 }
 export const connectionAPIGet = async <T>(url: string): Promise<T> => {
-  return ConnectionAPI.connect(url, MethodsEnum.GET);
+  return ConnectionAPI.connect<T>(url, MethodsEnum.GET);
 };
+
 export const connectionAPIDelete = async <T>(url: string): Promise<T> => {
-  return ConnectionAPI.connect(url, MethodsEnum.DELETE);
+  return ConnectionAPI.connect<T>(url, MethodsEnum.DELETE);
 };
+
 export const connectionAPIPost = async <T>(url: string, body: unknown): Promise<T> => {
-  return ConnectionAPI.connect(url, MethodsEnum.POST, body);
+  return ConnectionAPI.connect<T>(url, MethodsEnum.POST, body);
 };
-export const connectionAPIPatch = async <T>(url: string, body: unknown): Promise<T> => {
-  return ConnectionAPI.connect(url, MethodsEnum.PATCH, body);
-};
+
 export const connectionAPIPut = async <T>(url: string, body: unknown): Promise<T> => {
-  return ConnectionAPI.connect(url, MethodsEnum.PUT, body);
+  return ConnectionAPI.connect<T>(url, MethodsEnum.PUT, body);
+};
+
+export const connectionAPIPatch = async <T>(url: string, body: unknown): Promise<T> => {
+  return ConnectionAPI.connect<T>(url, MethodsEnum.PATCH, body);
 };
