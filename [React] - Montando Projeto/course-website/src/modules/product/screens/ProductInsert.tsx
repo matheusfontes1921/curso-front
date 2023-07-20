@@ -1,5 +1,6 @@
 import Screen from "../../../shared/screen/Screen";
-import {ProductRoutesEnum} from "../routes";
+import { ProductRoutesEnum } from "../routes";
+import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
 
 const ProductInsert = () => {
   return (
@@ -10,7 +11,7 @@ const ProductInsert = () => {
         },
         {
           name: "PRODUTOS",
-          navigateTo: ProductRoutesEnum.PRODUCT;
+          navigateTo: ProductRoutesEnum.PRODUCT,
         },
         {
           name: "INSERIR PRODUTO",

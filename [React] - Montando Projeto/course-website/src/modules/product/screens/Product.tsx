@@ -1,7 +1,7 @@
 import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
 import { useDataContext } from "../../../shared/hooks/useDataContext";
-import { useEffect } from "react";
-import useRequests from "../../../shared/hooks/useRequests";
+import { useEffect, useState } from "react";
+import { useRequests } from "../../../shared/hooks/useRequests";
 import { MethodsEnum } from "../../../shared/enums/methods.enum";
 import { ProductType } from "../../../shared/types/ProductType";
 import { URL_PRODUCT } from "../../../shared/constants/urls";
@@ -11,9 +11,12 @@ import CategoryColumn from "../components/CategoryColumn";
 import TooltipImage from "../components/TooltipImage";
 import { convertNumberToMoney } from "../../../shared/functions/money";
 import Screen from "../../../shared/screen/Screen";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ProductRoutesEnum } from "../routes";
+import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
+import { BoxButtons, LimitSizeButton, LimitSizeInput } from "../styles/product.style";
+const { Search } = Input;
 const columns: ColumnsType<ProductType> = [
   {
     title: "Id",
@@ -25,6 +28,7 @@ const columns: ColumnsType<ProductType> = [
     title: "Nome",
     dataIndex: "nome",
     key: "nome",
+    sorter: (a, b) => a.name.localeCompare(b.name),
     render: (text) => <a>(text)</a>,
   },
   {
@@ -40,31 +44,47 @@ const columns: ColumnsType<ProductType> = [
     render: (_, product) => <a>{convertNumberToMoney(product.price)}</a>,
   },
 ];
+const listBreadcrumb: ListBreadcrumb[] = [
+  {
+    name: "HOME",
+  },
+  {
+    name: "PRODUTOS",
+  },
+];
 
 const Product = () => {
   const { products, setProducts } = useDataContext();
+  const [productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
   const { request } = useRequests();
   const navigate = useNavigate();
   useEffect(() => {
-    request<ProductType[]>(URL_PRODUCT, MethodsEnum.GET, setProducts);
-  }, []);
+    setProductsFiltered([...products]);
+  }, [products]);
 
   const handleOnClickInsert = () => {
     navigate(ProductRoutesEnum.PRODUCT_INSERT);
   };
+  const onSearch = (value: string) => {
+    if (!value) {
+      setProductsFiltered([...products]);
+    } else {
+      setProductsFiltered([...productsFiltered.filter((product) => product.name.includes(value))]);
+    }
+  };
   return (
-    <Screen
-      listBreadcrumb={[
-        {
-          name: "HOME",
-        },
-        {
-          name: "PRODUTOS",
-        },
-      ]}
-    >
-      <Button onClick={handleOnClickInsert}>Inserir</Button>
-      <Table columns={columns} dataSource={products} />
+    <Screen listBreadcrumb={listBreadcrumb}>
+      <BoxButtons>
+        <LimitSizeInput>
+          <Search placeholder="Buscar produto" onSearch={onSearch} enterButton />
+        </LimitSizeInput>
+        <LimitSizeButton>
+          <Button type="primary" onClick={handleOnClickInsert}>
+            Inserir
+          </Button>
+        </LimitSizeButton>
+      </BoxButtons>
+      <Table columns={columns} dataSource={productsFiltered} />
     </Screen>
   );
 };

@@ -12,14 +12,14 @@ export default class ConnectionAPI {
       },
     };
     switch (method) {
-      case MethodsEnum.GET:
-      case MethodsEnum.DELETE:
-      default:
-        return (await axios[method]<T>(url, config)).data;
       case MethodsEnum.POST:
       case MethodsEnum.PATCH:
       case MethodsEnum.PUT:
         return (await axios[method]<T>(url, body, config)).data;
+      case MethodsEnum.GET:
+      case MethodsEnum.DELETE:
+      default:
+        return (await axios[method]<T>(url, config)).data;
 
     }
   }

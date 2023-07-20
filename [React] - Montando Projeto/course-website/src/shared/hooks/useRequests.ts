@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { AuthType } from '../../modules/login/types/AuthType';
 import { ProductRoutesEnum } from '../../modules/product/routes';
 import { ERROR_INVALID_PASSWORD } from '../constants/errorStatus';
@@ -66,3 +65,4 @@ export const useRequests = () => {
         request,
     };
 };
+
