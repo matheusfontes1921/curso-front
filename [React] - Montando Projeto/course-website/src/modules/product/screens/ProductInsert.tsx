@@ -13,9 +13,10 @@ import Button from "../../../shared/button/button/Button";
 import Select from "../../../shared/input/select/Select";
 import { InsertProduct } from "../../../shared/dtos/InsertProduct.dto";
 import { connectionAPIPost } from "../../../shared/functions/connection/connectionAPI";
-import {DisplayFlexJustifyRight} from "../../login/components/styles/display.style";
-import {useNavigate} from "react-router-dom";
-import {useGlobalContext} from "../../../shared/hooks/useGlobalContext";
+import { DisplayFlexJustifyRight } from "../../login/components/styles/display.style";
+import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
+import InputMoney from "../../../shared/input/inputMoney/InputMoney";
 
 const ProductInsert = () => {
   const [product, setProduct] = useState<InsertProduct>({
@@ -44,14 +45,16 @@ const ProductInsert = () => {
   };
   const handleOnClickCancel = () => {
     navigate(ProductRoutesEnum.PRODUCT);
-  }
+  };
   const handleInsertProduct = async () => {
-   await connectionAPIPost(URL_PRODUCT, product).then(() => {
-    setNotification("Sucesso!", "success", "Produto inserido com sucesso!")
-     navigate(ProductRoutesEnum.PRODUCT);
-   }).catch((error: Error) => {
-     setNotification(error.message, "error");
-   });
+    await connectionAPIPost(URL_PRODUCT, product)
+      .then(() => {
+        setNotification("Sucesso!", "success", "Produto inserido com sucesso!");
+        navigate(ProductRoutesEnum.PRODUCT);
+      })
+      .catch((error: Error) => {
+        setNotification(error.message, "error");
+      });
   };
 
   const handleChange = (value: string) => {
@@ -92,7 +95,7 @@ const ProductInsert = () => {
             title="Url imagem"
             placeholder="Url imagem"
           />
-          <Input
+          <InputMoney
             onChange={(event) => onChange(event, "price", true)}
             value={product.price}
             margin="0 0 16px 0"
