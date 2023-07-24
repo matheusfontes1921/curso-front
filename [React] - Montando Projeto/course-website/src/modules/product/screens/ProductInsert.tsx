@@ -62,7 +62,6 @@ const ProductInsert = () => {
       ...product,
       categoryId: Number(value),
     });
-    console.log(`selected ${value}`);
   };
   return (
     <Screen
@@ -98,7 +97,7 @@ const ProductInsert = () => {
           <InputMoney
             onChange={(event) => onChange(event, "price", true)}
             value={product.price}
-            margin="0 0 16px 0"
+            margin="0px 0px 16px 0px"
             title="Preço"
             placeholder="Preço"
           />
