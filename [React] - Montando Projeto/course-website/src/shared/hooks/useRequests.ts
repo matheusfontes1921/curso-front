@@ -48,7 +48,7 @@ export const useRequests = () => {
             .then((result) => {
                 setUser(result.user);
                 setAuthorizationToken(result.accessToken);
-                navigate(ProductRoutesEnum.PRODUCT);
+                location.href = "/";
                 return result;
             })
             .catch(() => {
