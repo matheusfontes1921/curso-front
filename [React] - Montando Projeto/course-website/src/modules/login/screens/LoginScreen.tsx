@@ -12,7 +12,9 @@ import Button from "../../../shared/button/button/Button";
 import { useContext, useState } from "react";
 import SVGHome from "../../../shared/icons/SVGHome";
 import { useRequests } from "../../../shared/hooks/useRequests";
+import {useNavigate} from "react-router-dom";
 const LoginScreen = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { authRequest, loading } = useRequests();
@@ -23,7 +25,7 @@ const LoginScreen = () => {
     setPassword(event.target.value);
   };
   const handleLogin = () => {
-    authRequest({
+    authRequest(navigate, {
       email: email,
       password: password,
     });

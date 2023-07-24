@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {NavigateFunction, useNavigate} from 'react-router-dom';
 import { AuthType } from '../../modules/login/types/AuthType';
 import { ProductRoutesEnum } from '../../modules/product/routes';
 import { ERROR_INVALID_PASSWORD } from '../constants/errorStatus';
@@ -10,6 +10,7 @@ import ConnectionAPI, {
     MethodType,
 } from '../functions/connection/connectionAPI';
 import { useGlobalContext } from './useGlobalContext';
+import {FirstScreenRoutesEnum} from "../../modules/firstScreen/routes";
 
 export const useRequests = () => {
     const [loading, setLoading] = useState(false);
@@ -40,15 +41,14 @@ export const useRequests = () => {
         return returnObject;
     };
 
-    const authRequest = async (body: unknown): Promise<void> => {
-        const navigate = useNavigate();
+    const authRequest = async (navigate: NavigateFunction, body: unknown): Promise<void> => {
         setLoading(true);
 
         await connectionAPIPost<AuthType>(URL_AUTH, body)
             .then((result) => {
                 setUser(result.user);
                 setAuthorizationToken(result.accessToken);
-                location.href = "/";
+                navigate(FirstScreenRoutesEnum.FIRST_SCREEN)
                 return result;
             })
             .catch(() => {
