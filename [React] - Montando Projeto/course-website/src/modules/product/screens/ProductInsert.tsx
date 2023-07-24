@@ -17,51 +17,28 @@ import { DisplayFlexJustifyRight } from "../../login/components/styles/display.s
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
 import InputMoney from "../../../shared/input/inputMoney/InputMoney";
+import { useInsertProduct } from "../hooks/useInsertProduct";
 
 const ProductInsert = () => {
-  const [product, setProduct] = useState<InsertProduct>({
-    name: "",
-    price: 0,
-    image: "",
-  });
+  const {
+    loading,
+    disableButton,
+    handleInsertProduct,
+    onChangeInput,
+    handleOnChangeSelect,
+    product,
+  } = useInsertProduct();
   const { categories, setCategories } = useDataContext();
   const { request } = useRequests();
-  const { setNotification } = useGlobalContext();
   const navigate = useNavigate();
   useEffect(() => {
     if (categories.length === 0) {
       request(URL_CATEGORIES, MethodsEnum.GET, setCategories);
     }
   }, []);
-  const onChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    nameObject: string,
-    isNumber?: boolean,
-  ) => {
-    setProduct({
-      ...product,
-      [nameObject]: isNumber ? Number(event.target.value) : event.target.value,
-    });
-  };
+
   const handleOnClickCancel = () => {
     navigate(ProductRoutesEnum.PRODUCT);
-  };
-  const handleInsertProduct = async () => {
-    await connectionAPIPost(URL_PRODUCT, product)
-      .then(() => {
-        setNotification("Sucesso!", "success", "Produto inserido com sucesso!");
-        navigate(ProductRoutesEnum.PRODUCT);
-      })
-      .catch((error: Error) => {
-        setNotification(error.message, "error");
-      });
-  };
-
-  const handleChange = (value: string) => {
-    setProduct({
-      ...product,
-      categoryId: Number(value),
-    });
   };
   return (
     <Screen
@@ -81,21 +58,21 @@ const ProductInsert = () => {
       <ProductInsertContainer>
         <LimitedContainer width={400}>
           <Input
-            onChange={(event) => onChange(event, "name")}
+            onChange={(event) => onChangeInput(event, "name")}
             value={product.name}
             margin="0 0 16px 0"
             title="Nome"
             placeholder="Nome"
           />
           <Input
-            onChange={(event) => onChange(event, "image")}
+            onChange={(event) => onChangeInput(event, "image")}
             value={product.image}
             margin="0 0 16px 0"
             title="Url imagem"
             placeholder="Url imagem"
           />
           <InputMoney
-            onChange={(event) => onChange(event, "price", true)}
+            onChange={(event) => onChangeInput(event, "price", true)}
             value={product.price}
             margin="0px 0px 16px 0px"
             title="Preço"
@@ -105,7 +82,7 @@ const ProductInsert = () => {
             title="Categoria"
             margin="0 0 32px 0"
             defaultValue="Categoria"
-            onChange={handleChange}
+            onChange={handleOnChangeSelect}
             options={categories.map((category) => ({
               value: `${category.id}`,
               label: `${category.name}`,
@@ -118,7 +95,7 @@ const ProductInsert = () => {
               </Button>
             </LimitedContainer>
             <LimitedContainer width={120}>
-              <Button onClick={handleInsertProduct} type="primary">
+              <Button loading={loading} disabled={disableButton} onClick={handleInsertProduct} type="primary">
                 Inserir produto
               </Button>
             </LimitedContainer>
