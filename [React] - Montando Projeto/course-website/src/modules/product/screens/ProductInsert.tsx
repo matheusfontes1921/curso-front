@@ -92,7 +92,12 @@ const ProductInsert = () => {
               </Button>
             </LimitedContainer>
             <LimitedContainer width={120}>
-              <Button loading={loading} disabled={disableButton} onClick={handleInsertProduct} type="primary">
+              <Button
+                loading={loading}
+                disabled={disableButton}
+                onClick={handleInsertProduct}
+                type="primary"
+              >
                 Inserir produto
               </Button>
             </LimitedContainer>

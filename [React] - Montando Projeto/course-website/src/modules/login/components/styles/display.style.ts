@@ -14,3 +14,6 @@ export const DisplayFlexJustifyBetween = styled(DisplayFlex)<DisplayFlexProps>`
   justify-content: space-between;
   ${(props) => (props.margin ? `margin: ${props.margin}` : "")};
 `;
+export const DisplayFlexJustifyCenter = styled(DisplayFlex)`
+  justify-content: center;
+`;
