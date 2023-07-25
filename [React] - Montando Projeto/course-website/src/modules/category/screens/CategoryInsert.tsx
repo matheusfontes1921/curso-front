@@ -15,7 +15,7 @@ import { useInsertCategory } from "../hooks/useInsertCategory";
 
 const CategoryInsert = () => {
   const navigate = useNavigate();
-  const { name, insertCategory, loading, handleOnChangeName } = useInsertCategory();
+  const { name, disabledButton, insertCategory, loading, handleOnChangeName } = useInsertCategory();
   const handleOnClickCancel = () => {
     navigate(CategoryRoutesEnum.CATEGORY);
   };
@@ -49,7 +49,7 @@ const CategoryInsert = () => {
               </Button>
             </LimitedContainer>
             <LimitedContainer width={160}>
-              <Button loading={loading} onClick={insertCategory} type="primary">
+              <Button disabled={disabledButton} loading={loading} onClick={insertCategory} type="primary">
                 Inserir categoria
               </Button>
             </LimitedContainer>

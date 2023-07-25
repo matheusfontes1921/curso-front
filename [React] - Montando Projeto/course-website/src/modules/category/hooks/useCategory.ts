@@ -1,18 +1,32 @@
 import { useDataContext } from "../../../shared/hooks/useDataContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRequests } from "../../../shared/hooks/useRequests";
 import { URL_CATEGORIES } from "../../../shared/constants/urls";
 import { MethodsEnum } from "../../../shared/enums/methods.enum";
 
 export const useCategory = () => {
   const { categories, setCategories } = useDataContext();
+  const [categoriesFilter, setCategoriesFilter] = useState(categories);
   const { request } = useRequests();
+  const handleOnChangeSearch = (value: string) => {
+    if (!value) {
+      setCategoriesFilter([...categories]);
+    } else {
+      setCategoriesFilter([
+        ...categoriesFilter.filter((category) => category.name.toUpperCase().includes(value.toUpperCase())),
+      ]);
+    }
+  };
   useEffect(() => {
     if (!categories || categories.length === 0) {
       request(URL_CATEGORIES, MethodsEnum.GET, setCategories);
     }
   }, []);
+  useEffect(() => {
+    setCategoriesFilter(categories);
+  }, [categories]);
   return {
-      categories,
-  }
+    categories,
+    handleOnChangeSearch,
+  };
 };
