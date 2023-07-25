@@ -15,7 +15,8 @@ import { Button, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ProductRoutesEnum } from "../routes";
 import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
-import { BoxButtons, LimitSizeButton, LimitSizeInput } from "../styles/product.style";
+import {LimitedContainer} from "../../login/components/styles/limited.style";
+import {DisplayFlexJustifyBetween} from "../../login/components/styles/display.style";
 const { Search } = Input;
 const columns: ColumnsType<ProductType> = [
   {
@@ -29,7 +30,7 @@ const columns: ColumnsType<ProductType> = [
     dataIndex: "nome",
     key: "nome",
     sorter: (a, b) => a.name.localeCompare(b.name),
-    render: (text) => <a>(text)</a>,
+    render: (text) => <a>{text}</a>,
   },
   {
     title: "Categoria",
@@ -74,16 +75,16 @@ const Product = () => {
   };
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
-      <BoxButtons>
-        <LimitSizeInput>
+      <DisplayFlexJustifyBetween margin={"0 0 16px 0"}>
+        <LimitedContainer width={240}>
           <Search placeholder="Buscar produto" onSearch={onSearch} enterButton />
-        </LimitSizeInput>
-        <LimitSizeButton>
+        </LimitedContainer>
+        <LimitedContainer width={120}>
           <Button type="primary" onClick={handleOnClickInsert}>
             Inserir
           </Button>
-        </LimitSizeButton>
-      </BoxButtons>
+        </LimitedContainer>
+      </DisplayFlexJustifyBetween>
       <Table columns={columns} dataSource={productsFiltered} />
     </Screen>
   );
