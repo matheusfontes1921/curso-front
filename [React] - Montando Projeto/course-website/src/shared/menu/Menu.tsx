@@ -2,19 +2,17 @@ import { ContainerLogoName, ContainerMenu, NameCompany } from "./menu.style";
 import SVGHome from "../icons/SVGHome";
 import React, { useState } from "react";
 import {
-  AppstoreOutlined,
   HomeOutlined,
   LaptopOutlined,
-  MailOutlined,
   ProfileOutlined,
   SafetyCertificateOutlined,
-  SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps, MenuTheme } from "antd";
 import { Menu as MenuAntd } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ProductRoutesEnum } from "../../modules/product/routes";
+import {CategoryRoutesEnum} from "../../modules/category/routes";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -48,18 +46,18 @@ const Menu = () => {
     },
     {
       key: "category",
-      label: "Categoriass",
+      label: "Categorias",
       icon: <ProfileOutlined />,
       children: [
         {
           key: "categories_view",
           label: "Visualizar",
-          onClick: () => navigate(ProductRoutesEnum.PRODUCT),
+          onClick: () => navigate(CategoryRoutesEnum.CATEGORY),
         },
         {
           key: "categories_insert",
           label: "Inserir",
-          onClick: () => navigate(ProductRoutesEnum.PRODUCT_INSERT),
+          onClick: () => navigate(CategoryRoutesEnum.CATEGORY_INSERT),
         },
       ],
     },

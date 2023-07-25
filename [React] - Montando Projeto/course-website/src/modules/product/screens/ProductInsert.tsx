@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
 import InputMoney from "../../../shared/input/inputMoney/InputMoney";
 import { useInsertProduct } from "../hooks/useInsertProduct";
+import {useCategory} from "../../category/hooks/useCategory";
 
 const ProductInsert = () => {
   const {
@@ -28,14 +29,10 @@ const ProductInsert = () => {
     handleOnChangeSelect,
     product,
   } = useInsertProduct();
-  const { categories, setCategories } = useDataContext();
+  const { categories, setCategories } = useCategory();
   const { request } = useRequests();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (categories.length === 0) {
-      request(URL_CATEGORIES, MethodsEnum.GET, setCategories);
-    }
-  }, []);
+
 
   const handleOnClickCancel = () => {
     navigate(ProductRoutesEnum.PRODUCT);

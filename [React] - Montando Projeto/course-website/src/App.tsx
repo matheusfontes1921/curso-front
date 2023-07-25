@@ -10,9 +10,14 @@ import {getAuthorizationToken, verifyLoggedIn} from "./shared/functions/connecti
 import { useGlobalContext } from "./shared/hooks/useGlobalContext";
 import { useNotification } from "./shared/hooks/useNotification";
 import { useRequests } from "./shared/hooks/useRequests";
+import {categoryRoutes} from "./modules/category/routes";
 
 const routes: RouteObject[] = [...loginRoutes];
-const routesLoggedIn: RouteObject[] = [...productRoutes, ...firstScreenRoutes].map((route) => ({
+const routesLoggedIn: RouteObject[] = [
+  ...productRoutes,
+  ...categoryRoutes,
+  ...firstScreenRoutes,
+].map((route) => ({
   ...route,
   loader: verifyLoggedIn,
 }));
