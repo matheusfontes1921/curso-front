@@ -17,6 +17,9 @@ import { ProductRoutesEnum } from "../routes";
 import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
 import {LimitedContainer} from "../../login/components/styles/limited.style";
 import {DisplayFlexJustifyBetween} from "../../login/components/styles/display.style";
+import {useAppSelector} from "../../../store/hooks";
+import {setProductsAction} from "../../../store/reducers/productReducer";
+import {useProductReducer} from "../../../store/reducers/productReducer/useProductReducer";
 const { Search } = Input;
 const columns: ColumnsType<ProductType> = [
   {
@@ -55,7 +58,7 @@ const listBreadcrumb: ListBreadcrumb[] = [
 ];
 
 const Product = () => {
-  const { products, setProducts } = useDataContext();
+  const { products, setProducts } = useProductReducer();
   const [productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
   const { request } = useRequests();
   const navigate = useNavigate();
