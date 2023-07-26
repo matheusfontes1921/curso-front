@@ -5,12 +5,13 @@ import { ProductRoutesEnum } from "../routes";
 import { InsertProduct } from "../../../shared/dtos/InsertProduct.dto";
 import {useNavigate} from "react-router-dom";
 import {useGlobalContext} from "../../../shared/hooks/useGlobalContext";
+import {useGlobalReducer} from "../../../store/reducers/globalReducer/useGlobalReducer";
 /* ideia de tirar os hooks é para tirar a logica de outras classes e
 facilitar os testes unitarios
  */
 export const useInsertProduct = () => {
   const navigate = useNavigate();
-  const { setNotification } = useGlobalContext();
+  const { setNotification } = useGlobalReducer();
   const [loading, setLoading] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
   const [product, setProduct] = useState<InsertProduct>({

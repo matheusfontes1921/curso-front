@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { useRequests } from "../../../shared/hooks/useRequests";
 import { URL_CATEGORIES } from "../../../shared/constants/urls";
 import { MethodsEnum } from "../../../shared/enums/methods.enum";
+import {useCategoryReducer} from "../../../store/reducers/categoryReducer/useCategoryReducer";
 
 export const useCategory = () => {
-  const { categories, setCategories } = useDataContext();
+  const { categories, setCategories } = useCategoryReducer();
   const [categoriesFilter, setCategoriesFilter] = useState(categories);
   const { request } = useRequests();
   const handleOnChangeSearch = (value: string) => {

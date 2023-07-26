@@ -11,6 +11,7 @@ import { useGlobalContext } from "./shared/hooks/useGlobalContext";
 import { useNotification } from "./shared/hooks/useNotification";
 import { useRequests } from "./shared/hooks/useRequests";
 import {categoryRoutes} from "./modules/category/routes";
+import {useGlobalReducer} from "./store/reducers/globalReducer/useGlobalReducer";
 
 const routes: RouteObject[] = [...loginRoutes];
 const routesLoggedIn: RouteObject[] = [
@@ -26,7 +27,7 @@ const router: RemixRouter = createBrowserRouter([...routes, ...routesLoggedIn]);
 
 function App() {
   const { contextHolder } = useNotification();
-  const { setUser } = useGlobalContext();
+  const { setUser } = useGlobalReducer();
   const { request } = useRequests();
 
   useEffect(() => {
