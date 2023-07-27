@@ -18,7 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
 import InputMoney from "../../../shared/input/inputMoney/InputMoney";
 import { useInsertProduct } from "../hooks/useInsertProduct";
-import {useCategory} from "../../category/hooks/useCategory";
+import { useCategory } from "../../category/hooks/useCategory";
+import { ProductInsertTestIdEnum } from "../productInsertTestIdEnum";
 
 const ProductInsert = () => {
   const {
@@ -32,7 +33,6 @@ const ProductInsert = () => {
   const { categories, setCategories } = useCategory();
   const { request } = useRequests();
   const navigate = useNavigate();
-
 
   const handleOnClickCancel = () => {
     navigate(ProductRoutesEnum.PRODUCT);
@@ -52,9 +52,10 @@ const ProductInsert = () => {
         },
       ]}
     >
-      <ProductInsertContainer>
+      <ProductInsertContainer data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_CONTAINER}>
         <LimitedContainer width={400}>
           <Input
+            data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_NAME}
             onChange={(event) => onChangeInput(event, "name")}
             value={product.name}
             margin="0 0 16px 0"
@@ -62,6 +63,7 @@ const ProductInsert = () => {
             placeholder="Nome"
           />
           <Input
+            data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_IMAGE}
             onChange={(event) => onChangeInput(event, "image")}
             value={product.image}
             margin="0 0 16px 0"
@@ -69,6 +71,7 @@ const ProductInsert = () => {
             placeholder="Url imagem"
           />
           <InputMoney
+            data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_PRICE}
             onChange={(event) => onChangeInput(event, "price", true)}
             value={product.price}
             margin="0px 0px 16px 0px"
@@ -76,6 +79,7 @@ const ProductInsert = () => {
             placeholder="Preço"
           />
           <Select
+            data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_SELECT}
             title="Categoria"
             margin="0 0 32px 0"
             defaultValue="Categoria"
@@ -87,12 +91,16 @@ const ProductInsert = () => {
           />
           <DisplayFlexJustifyRight>
             <LimitedContainer margin="0px 8px" width={120}>
-              <Button danger onClick={handleOnClickCancel}>
+              <Button
+                data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_BUTTON_CANCEL}
+                onClick={handleOnClickCancel}
+              >
                 Cancelar
               </Button>
             </LimitedContainer>
             <LimitedContainer width={120}>
               <Button
+                data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_BUTTON_INSERT}
                 loading={loading}
                 disabled={disableButton}
                 onClick={handleInsertProduct}
