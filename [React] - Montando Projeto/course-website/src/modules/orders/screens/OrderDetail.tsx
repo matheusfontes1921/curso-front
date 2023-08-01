@@ -3,9 +3,11 @@ import { Descriptions, Divider, Spin } from "antd";
 import { DisplayFlexJustifyCenter } from "../../../shared/components/styles/display.styled";
 import { convertNumberToMoney } from "../../../shared/functions/money";
 import { OrderRoutesEnum } from "../routes";
-
+import { useParams } from "react-router-dom";
+import {useOrderDetail} from "../hooks/useOrderDetail"
 const OrderDetail = () => {
-  // const { order, loading } = use;
+  const { orderId } = useParams<{ orderId: string }>();
+  const { order } = useOrderDetail(orderId);
   return (
     <Screen
       listBreadcrumb={[
