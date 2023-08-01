@@ -4,6 +4,8 @@ import { ColumnsType } from "antd/es/table";
 import { CategoryType } from "../../../shared/types/CategoryType";
 import { OrderType } from "../../../shared/types/OrderType";
 import Table from "../../../shared/table/Table";
+import { useNavigate } from "react-router-dom";
+import { OrderRoutesEnum } from "../routes";
 const columns: ColumnsType<OrderType> = [
   {
     title: "Id",
@@ -31,6 +33,7 @@ const columns: ColumnsType<OrderType> = [
   },
 ];
 const Order = () => {
+  const navigate = useNavigate();
   const { orders } = useOrder();
   return (
     <Screen
@@ -43,7 +46,13 @@ const Order = () => {
         },
       ]}
     >
-      <Table columns={columns} dataSource={orders} />
+      <Table
+        onRow={() => ({
+          onClick: () => navigate(OrderRoutesEnum.ORDER_ID),
+        })}
+        columns={columns}
+        dataSource={orders}
+      />
     </Screen>
   );
 };
