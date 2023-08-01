@@ -5,6 +5,7 @@ import { convertNumberToMoney } from "../../../shared/functions/money";
 import { OrderRoutesEnum } from "../routes";
 import { useParams } from "react-router-dom";
 import { useOrderDetail } from "../hooks/useOrderDetail";
+import ListOrderProduct from "../components/ListOrderProduct";
 const OrderDetail = () => {
   const { orderId } = useParams<{ orderId: string }>();
   const { order, loading } = useOrderDetail(orderId);
