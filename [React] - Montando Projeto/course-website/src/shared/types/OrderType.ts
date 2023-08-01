@@ -1,4 +1,5 @@
 import {UserType} from "../../modules/login/types/UserType";
+import {PaymentType} from "./PaymentType";
 
 export interface OrderType {
     id: number;
@@ -6,4 +7,5 @@ export interface OrderType {
     userId: number;
     user: UserType;
     ammountProducts: number;
+    payment?: PaymentType;
 }

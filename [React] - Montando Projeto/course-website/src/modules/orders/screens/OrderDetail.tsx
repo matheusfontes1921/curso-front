@@ -4,10 +4,10 @@ import { DisplayFlexJustifyCenter } from "../../../shared/components/styles/disp
 import { convertNumberToMoney } from "../../../shared/functions/money";
 import { OrderRoutesEnum } from "../routes";
 import { useParams } from "react-router-dom";
-import {useOrderDetail} from "../hooks/useOrderDetail"
+import { useOrderDetail } from "../hooks/useOrderDetail";
 const OrderDetail = () => {
   const { orderId } = useParams<{ orderId: string }>();
-  const { order } = useOrderDetail(orderId);
+  const { order, loading } = useOrderDetail(orderId);
   return (
     <Screen
       listBreadcrumb={[
