@@ -6,6 +6,9 @@ import { OrderRoutesEnum } from "../routes";
 import { useParams } from "react-router-dom";
 import { useOrderDetail } from "../hooks/useOrderDetail";
 import ListOrderProduct from "../components/ListOrderProduct";
+import {inserMaskForCpf} from "../../../shared/functions/cpf";
+import {insertMaskForPhone} from "../../../shared/functions/phone";
+import {insertMaskForCep} from "../../../shared/functions/address";
 const OrderDetail = () => {
   const { orderId } = useParams<{ orderId: string }>();
   const { order, loading } = useOrderDetail(orderId);
@@ -35,9 +38,11 @@ const OrderDetail = () => {
             <Descriptions.Item label="Email" span={2}>
               {order.user?.email}
             </Descriptions.Item>
-            <Descriptions.Item label="Telefone">{order.user?.phone}</Descriptions.Item>
+            <Descriptions.Item label="Telefone">
+              {insertMaskForPhone(order.user?.phone)}
+            </Descriptions.Item>
             <Descriptions.Item label="CPF" span={2}>
-              {order.user?.cpf}
+              {inserMaskForCpf(order.user?.cpf)}
             </Descriptions.Item>
           </Descriptions>
           <Divider />
@@ -65,7 +70,7 @@ const OrderDetail = () => {
             <Descriptions.Item label="Complemento">{order.address?.complement}</Descriptions.Item>
             <Descriptions.Item label="Número">{order.address?.numberAddress}</Descriptions.Item>
             <Descriptions.Item label="CEP" span={2}>
-              {order.address?.cep}
+              {insertMaskForCep(order.address?.cep)}
             </Descriptions.Item>
           </Descriptions>
           <Divider />
