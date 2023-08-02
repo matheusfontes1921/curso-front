@@ -5,8 +5,17 @@ import {NavigateFunction, redirect} from "react-router-dom";
 import { connectionAPIGet } from "./connectionAPI";
 import { URL_USER } from "../../constants/urls";
 import {LoginRoutesEnum} from "../../../modules/login/routes";
+import {UserTokenType} from "../../types/UserTokenType";
 export const unsetAuthorizationToken = () => removeItem(AUTHORIZATION_KEY);
 
+export const getUserInfoToken = (): UserTokenType | undefined => {
+  const token = getAuthorizationToken();
+  const tokenVector = token?.split(".");
+  if(tokenVector && tokenVector.length > 1) {
+    return JSON.parse(window.atob(tokenVector[1])); /*convertendo base64 p string */
+  }
+  return undefined;
+}
 export const setAuthorizationToken = (token?: string) => {
   if (token) {
     setItem(AUTHORIZATION_KEY, token);

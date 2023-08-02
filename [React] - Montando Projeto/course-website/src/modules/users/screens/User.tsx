@@ -1,15 +1,21 @@
 import Screen from "../../../shared/screen/Screen";
 import Table from "../../../shared/table/Table";
 import { ColumnsType } from "antd/es/table";
-import { Input} from "antd";
+import { Input } from "antd";
 import { UserType } from "../../../shared/types/UserType";
 import { useUser } from "../hooks/useUser";
 import { insertMaskForPhone } from "../../../shared/functions/phone";
 import { inserMaskForCpf } from "../../../shared/functions/cpf";
-import {DisplayFlexJustifyBetween, DisplayFlexJustifyCenter} from "../../login/components/styles/display.style";
+import {
+  DisplayFlexJustifyBetween,
+  DisplayFlexJustifyCenter,
+} from "../../login/components/styles/display.style";
 import { Spin } from "antd";
-import {LimitedContainer} from "../../login/components/styles/limited.style";
+import { LimitedContainer } from "../../login/components/styles/limited.style";
 import Button from "../../../shared/button/button/Button";
+import { getUserInfoToken } from "../../../shared/functions/connection/auth";
+import { useMemo } from "react";
+import { UserTypeEnum } from "../../../shared/enums/userType.enum";
 const { Search } = Input;
 const columns: ColumnsType<UserType> = [
   {
@@ -45,7 +51,9 @@ const columns: ColumnsType<UserType> = [
 ];
 const User = () => {
   const { users, loading, handleOnChangeSearch } = useUser();
-
+  const userToken = useMemo(() => {
+    return getUserInfoToken();
+  }, []);
   return (
     <Screen
       listBreadcrumb={[
@@ -62,19 +70,19 @@ const User = () => {
           <Spin size={"large"} />
         </DisplayFlexJustifyCenter>
       ) : (
-          <>
-            <DisplayFlexJustifyBetween margin={"0 0 16px 0"}>
-              <LimitedContainer width={240}>
-                <Search placeholder={"Buscar usuário"} onChange={handleOnChangeSearch} enterButton />
-              </LimitedContainer>
-              <LimitedContainer width={120}>
-                <Button type={"primary"}>
-                  Inserir
-                </Button>
-              </LimitedContainer>
-            </DisplayFlexJustifyBetween>
-            <Table columns={columns} dataSource={users} />
-          </>
+        <>
+          <DisplayFlexJustifyBetween margin={"0 0 16px 0"}>
+            <LimitedContainer width={240}>
+              <Search placeholder={"Buscar usuário"} onSearch={handleOnChangeSearch} enterButton />
+            </LimitedContainer>
+            <LimitedContainer width={180}>
+              {userToken?.typeUser === UserTypeEnum.Root && (
+                <Button type={"primary"}>Inserir Admin</Button>
+              )}
+            </LimitedContainer>
+          </DisplayFlexJustifyBetween>
+          <Table columns={columns} dataSource={users} />
+        </>
       )}
     </Screen>
   );
