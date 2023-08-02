@@ -1,6 +1,6 @@
 import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
 import { useDataContext } from "../../../shared/hooks/useDataContext";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRequests } from "../../../shared/hooks/useRequests";
 import { MethodsEnum } from "../../../shared/enums/methods.enum";
 import { ProductType } from "../../../shared/types/ProductType";
@@ -15,39 +15,14 @@ import { Button, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ProductRoutesEnum } from "../routes";
 import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
-import {LimitedContainer} from "../../login/components/styles/limited.style";
-import {DisplayFlexJustifyBetween} from "../../login/components/styles/display.style";
-import {useAppSelector} from "../../../store/hooks";
-import {setProductsAction} from "../../../store/reducers/productReducer";
-import {useProductReducer} from "../../../store/reducers/productReducer/useProductReducer";
+import { LimitedContainer } from "../../login/components/styles/limited.style";
+import { DisplayFlexJustifyBetween } from "../../login/components/styles/display.style";
+import { useAppSelector } from "../../../store/hooks";
+import { setProductsAction } from "../../../store/reducers/productReducer";
+import { useProductReducer } from "../../../store/reducers/productReducer/useProductReducer";
+import { useProduct } from "../hooks/useProduct";
 const { Search } = Input;
-const columns: ColumnsType<ProductType> = [
-  {
-    title: "Id",
-    dataIndex: "id",
-    key: "id",
-    render: (_, product) => <TooltipImage product={product} />,
-  },
-  {
-    title: "Nome",
-    dataIndex: "nome",
-    key: "nome",
-    sorter: (a, b) => a.name.localeCompare(b.name),
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Categoria",
-    dataIndex: "categoria",
-    key: "categoria",
-    render: (_, product) => <CategoryColumn category={product.category} />,
-  },
-  {
-    title: "Preço",
-    dataIndex: "preco",
-    key: "preco",
-    render: (_, product) => <a>{convertNumberToMoney(product.price)}</a>,
-  },
-];
+
 const listBreadcrumb: ListBreadcrumb[] = [
   {
     name: "HOME",
@@ -58,24 +33,44 @@ const listBreadcrumb: ListBreadcrumb[] = [
 ];
 
 const Product = () => {
-  const { products, setProducts } = useProductReducer();
-  const [productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
-  const { request } = useRequests();
-  const navigate = useNavigate();
-  useEffect(() => {
-    setProductsFiltered([...products]);
-  }, [products]);
+  const { handleOnClickInsert, handelDeleteProduct, onSearch, setProductsFiltered, productsFiltered } = useProduct();
+  const columns: ColumnsType<ProductType> = useMemo(
+    () => [
+      {
+        title: "Id",
+        dataIndex: "id",
+        key: "id",
+        render: (_, product) => <TooltipImage product={product} />,
+      },
+      {
+        title: "Nome",
+        dataIndex: "nome",
+        key: "nome",
+        sorter: (a, b) => a.name.localeCompare(b.name),
+        render: (text) => <a>{text}</a>,
+      },
+      {
+        title: "Categoria",
+        dataIndex: "categoria",
+        key: "categoria",
+        render: (_, product) => <CategoryColumn category={product.category} />,
+      },
+      {
+        title: "Preço",
+        dataIndex: "preco",
+        key: "preco",
+        render: (_, product) => <a>{convertNumberToMoney(product.price)}</a>,
+      },
+      {
+        title: "Action",
+        dataIndex: "",
+        key: "x",
+        render: (_, product) => <a onClick={() => handelDeleteProduct(product.id)}>Deletar</a>,
+      },
+    ],
+    [],
+  );
 
-  const handleOnClickInsert = () => {
-    navigate(ProductRoutesEnum.PRODUCT_INSERT);
-  };
-  const onSearch = (value: string) => {
-    if (!value) {
-      setProductsFiltered([...products]);
-    } else {
-      setProductsFiltered([...productsFiltered.filter((product) => product.name.includes(value))]);
-    }
-  };
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
       <DisplayFlexJustifyBetween margin={"0 0 16px 0"}>
