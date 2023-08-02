@@ -14,7 +14,7 @@ export const useOrderReducer = () => {
   };
   return {
     order,
-    setOrder
+    setOrder,
     orders,
     setOrders,
   };

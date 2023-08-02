@@ -7,12 +7,12 @@ import { productRoutes } from "./modules/product/routes";
 import { URL_USER } from "./shared/constants/urls";
 import { MethodsEnum } from "./shared/enums/methods.enum";
 import { getAuthorizationToken, verifyLoggedIn } from "./shared/functions/connection/auth";
-import { useGlobalContext } from "./shared/hooks/useGlobalContext";
 import { useNotification } from "./shared/hooks/useNotification";
 import { useRequests } from "./shared/hooks/useRequests";
 import { categoryRoutes } from "./modules/category/routes";
 import { useGlobalReducer } from "./store/reducers/globalReducer/useGlobalReducer";
 import { orderScreens } from "./modules/orders/routes";
+import { userScreens } from "./modules/users/routes";
 
 const routes: RouteObject[] = [...loginRoutes];
 const routesLoggedIn: RouteObject[] = [
@@ -20,6 +20,7 @@ const routesLoggedIn: RouteObject[] = [
   ...categoryRoutes,
   ...firstScreenRoutes,
   ...orderScreens,
+  ...userScreens,
 ].map((route) => ({
   ...route,
   loader: verifyLoggedIn,

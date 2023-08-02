@@ -3,6 +3,7 @@ import Table from "../../../shared/table/Table";
 import { ColumnsType } from "antd/es/table";
 import { OrderType } from "../../../shared/types/OrderType";
 import { UserType } from "../../../shared/types/UserType";
+import { useUser } from "../hooks/useUser";
 const columns: ColumnsType<UserType> = [
   {
     title: "Id",
@@ -20,7 +21,7 @@ const columns: ColumnsType<UserType> = [
     title: "Email",
     dataIndex: "email",
     key: "email",
-    render: (_, target) => <a>{target.user?.name}</a>,
+    render: (text) => <a>{text}</a>,
   },
   {
     title: "Quantidade de produtos",
@@ -30,6 +31,7 @@ const columns: ColumnsType<UserType> = [
   },
 ];
 const User = () => {
+  const { users } = useUser();
   return (
     <Screen
       listBreadcrumb={[
@@ -41,7 +43,7 @@ const User = () => {
         },
       ]}
     >
-      <Table />
+      <Table columns={columns} />
     </Screen>
   );
 };

@@ -1,3 +1,3 @@
 import Category from "./screens/Category";
 
-expor default Category;
+export default Category;

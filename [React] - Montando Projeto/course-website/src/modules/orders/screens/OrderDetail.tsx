@@ -1,6 +1,5 @@
 import Screen from "../../../shared/screen/Screen";
 import { Descriptions, Divider, Spin } from "antd";
-import { DisplayFlexJustifyCenter } from "../../../shared/components/styles/display.styled";
 import { convertNumberToMoney } from "../../../shared/functions/money";
 import { OrderRoutesEnum } from "../routes";
 import { useParams } from "react-router-dom";
@@ -28,9 +27,9 @@ const OrderDetail = () => {
       ]}
     >
       {!order || loading ? (
-        <DisplayFlexJustifyCenter>
+        <div>
           <Spin size="large" />
-        </DisplayFlexJustifyCenter>
+        </div>
       ) : (
         <>
           <Descriptions title="Dados do usuário" bordered>

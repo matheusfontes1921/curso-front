@@ -11,8 +11,8 @@ interface GlobalState {
 
 // Define the initial state using that type
 const initialState: GlobalState = {
-  notification?: undefined,
-  user?: undefined,
+  notification: undefined,
+  user: undefined,
 };
 
 export const counterSlice = createSlice({
@@ -21,7 +21,7 @@ export const counterSlice = createSlice({
   reducers: {
     setNotificationAction: (state, action: PayloadAction<NotificationType>) => {
       state.notification = action.payload;
-    }
+    },
     setUsersAction: (state, action: PayloadAction<UserType>) => {
       state.user = action.payload;
     },
