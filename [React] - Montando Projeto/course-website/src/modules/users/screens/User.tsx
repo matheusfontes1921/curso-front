@@ -16,6 +16,8 @@ import Button from "../../../shared/button/button/Button";
 import { getUserInfoToken } from "../../../shared/functions/connection/auth";
 import { useMemo } from "react";
 import { UserTypeEnum } from "../../../shared/enums/userType.enum";
+import {useNavigate} from "react-router-dom";
+import {UserRoutesEnum} from "../routes";
 const { Search } = Input;
 const columns: ColumnsType<UserType> = [
   {
@@ -50,6 +52,10 @@ const columns: ColumnsType<UserType> = [
   },
 ];
 const User = () => {
+  const navigate = useNavigate();
+  const handleGoToInsert = () => {
+    navigate(UserRoutesEnum.USER_INSERT);
+  }
   const { users, loading, handleOnChangeSearch } = useUser();
   const userToken = useMemo(() => {
     return getUserInfoToken();
@@ -77,7 +83,7 @@ const User = () => {
             </LimitedContainer>
             <LimitedContainer width={180}>
               {userToken?.typeUser === UserTypeEnum.Root && (
-                <Button type={"primary"}>Inserir Admin</Button>
+                <Button type={"primary"} onClick={handleGoToInsert}>Inserir Admin</Button>
               )}
             </LimitedContainer>
           </DisplayFlexJustifyBetween>
