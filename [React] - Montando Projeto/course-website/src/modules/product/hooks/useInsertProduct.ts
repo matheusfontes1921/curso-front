@@ -17,9 +17,9 @@ export const useInsertProduct = (productId?: string) => {
   const { product: productReducer, setProduct: setProductReducer } = useProductReducer();
   const { setNotification } = useGlobalReducer();
   const [loading, setLoading] = useState(false);
-  const { request } = useRequests();
-  const [disableButton, setDisableButton] = useState(true);
-  const [product, setProduct] = useState<InsertProduct>({
+  const { request, loading: loadingRequest } = useRequests();
+  const [isEdit, setIsEditing] = useState(false);
+  const DEFAULT_PRODUCT = {
     name: "",
     price: 0,
     image: "",
@@ -28,7 +28,12 @@ export const useInsertProduct = (productId?: string) => {
     height: 0,
     width: 0,
     diameter: 0,
-  });
+  }
+  const [disableButton, setDisableButton] = useState(true);
+  const [product, setProduct] = useState<InsertProduct>(DEFAULT_PRODUCT);
+  const handleOnClickCancel = () => {
+    navigate(ProductRoutesEnum.PRODUCT);
+  };
   useEffect(() => {
     if (product.name && product.price > 0 && product.image && product.categoryId) {
       setDisableButton(false);
@@ -38,14 +43,22 @@ export const useInsertProduct = (productId?: string) => {
   }, [product]);
   useEffect(() => {
     if (productId) {
+      setIsEditing(true);
       setProductReducer(undefined);
       request(
         URL_PRODUCT_ID.replace("{productId}", `${productId}`),
         MethodsEnum.GET,
         setProductReducer,
       );
+    } else {
+      setProductReducer(undefined);
+      setProduct(DEFAULT_PRODUCT);
     }
   }, [productId]);
+  useEffect(() => {
+    setProductReducer(undefined);
+    setProduct(DEFAULT_PRODUCT);
+  },[]);
   useEffect(() => {
     if (productReducer) {
       setProduct({
@@ -78,16 +91,17 @@ export const useInsertProduct = (productId?: string) => {
     });
   };
   const handleInsertProduct = async () => {
-    setLoading(true);
-    await connectionAPIPost(URL_PRODUCT, product)
-      .then(() => {
-        setNotification("Sucesso!", "success", "Produto inserido com sucesso!");
-        navigate(ProductRoutesEnum.PRODUCT);
-      })
-      .catch((error: Error) => {
-        setNotification(error.message, "error");
-      });
-    setLoading(false);
+    if (productId) {
+      await request(
+        URL_PRODUCT_ID.replace("{productId}", `${productId}`),
+        MethodsEnum.PUT,
+        undefined,
+        product,
+      );
+    } else {
+      await request(URL_PRODUCT, MethodsEnum.POST, undefined, product);
+    }
+    navigate(ProductRoutesEnum.PRODUCT);
   };
   return {
     product,
@@ -96,5 +110,9 @@ export const useInsertProduct = (productId?: string) => {
     handleInsertProduct,
     onChangeInput,
     handleOnChangeSelect,
+    isEdit,
+    setIsEditing,
+    loadingRequest,
+    handleOnClickCancel,
   };
 };
