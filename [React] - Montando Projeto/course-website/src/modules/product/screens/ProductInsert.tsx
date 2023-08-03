@@ -1,21 +1,14 @@
 import Screen from "../../../shared/screen/Screen";
 import { ProductRoutesEnum } from "../routes";
-import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
-import React, { useEffect, useState } from "react";
-import { useDataContext } from "../../../shared/hooks/useDataContext";
+import React from "react";
 import { useRequests } from "../../../shared/hooks/useRequests";
-import { MethodsEnum } from "../../../shared/enums/methods.enum";
-import { URL_CATEGORIES, URL_PRODUCT } from "../../../shared/constants/urls";
 import { ProductInsertContainer } from "../styles/productInsert.style";
 import { LimitedContainer } from "../../login/components/styles/limited.style";
 import Input from "../../../shared/input/input/Input";
 import Button from "../../../shared/button/button/Button";
 import Select from "../../../shared/input/select/Select";
-import { InsertProduct } from "../../../shared/dtos/InsertProduct.dto";
-import { connectionAPIPost } from "../../../shared/functions/connection/connectionAPI";
-import { DisplayFlexJustifyRight } from "../../login/components/styles/display.style";
+import { DisplayFlex, DisplayFlexJustifyRight } from "../../login/components/styles/display.style";
 import { useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
 import InputMoney from "../../../shared/input/inputMoney/InputMoney";
 import { useInsertProduct } from "../hooks/useInsertProduct";
 import { useCategory } from "../../category/hooks/useCategory";
@@ -81,7 +74,7 @@ const ProductInsert = () => {
           <Select
             data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_SELECT}
             title="Categoria"
-            margin="0 0 32px 0"
+            margin="0 0 16px 0"
             defaultValue="Categoria"
             onChange={handleOnChangeSelect}
             options={categories.map((category) => ({
@@ -89,6 +82,57 @@ const ProductInsert = () => {
               label: `${category.name}`,
             }))}
           />
+          <DisplayFlex>
+            <Input
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_IMAGE}
+              addonBefore={"Kg"}
+              onChange={(event) => onChangeInput(event, "weight", true)}
+              value={product.weight}
+              margin="0 16px 16px 0"
+              title="Peso"
+              placeholder="Peso"
+            />
+            <Input
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_IMAGE}
+              addonBefore={"cm"}
+              onChange={(event) => onChangeInput(event, "lenght", true)}
+              value={product.lenght}
+              margin="0 0 16px 0"
+              title="Comprimento"
+              placeholder="Comprimento"
+            />
+          </DisplayFlex>
+          <DisplayFlex>
+            <Input
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_IMAGE}
+              addonBefore={"cm"}
+              onChange={(event) => onChangeInput(event, "height", true)}
+              value={product.height}
+              margin="0 16px 16px 0"
+              title="Altura"
+              placeholder="Altura"
+            />
+            <Input
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_IMAGE}
+              addonBefore={"cm"}
+              onChange={(event) => onChangeInput(event, "width", true)}
+              value={product.width}
+              margin="0 0 16px 0"
+              title="Largura"
+              placeholder="Largura"
+            />
+          </DisplayFlex>
+          <DisplayFlex>
+            <Input
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_INPUT_IMAGE}
+              addonBefore={"cm"}
+              onChange={(event) => onChangeInput(event, "diameter", true)}
+              value={product.diameter}
+              margin="0 0 16px 0"
+              title="Diâmetro"
+              placeholder="Diâmetro"
+            />
+          </DisplayFlex>
           <DisplayFlexJustifyRight>
             <LimitedContainer margin="0px 8px" width={120}>
               <Button

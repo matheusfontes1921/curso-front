@@ -18,6 +18,11 @@ export const useInsertProduct = () => {
     name: "",
     price: 0,
     image: "",
+    weight: 0,
+    lenght: 0,
+    height: 0,
+    width: 0,
+    diameter: 0,
   });
   useEffect(() => {
     if (product.name && product.price > 0 && product.image && product.categoryId) {
