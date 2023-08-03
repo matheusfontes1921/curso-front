@@ -30,11 +30,17 @@ export const useProduct = () => {
     await request(URL_PRODUCT_ID.replace("{productID}", `${productId}`), MethodsEnum.DELETE);
     await request<ProductType[]>(URL_PRODUCT, MethodsEnum.GET, setProducts);
   };
+  const handelEditProduct = async (productId: number) => {
+    navigate(ProductRoutesEnum.PRODUCT_EDIT.replace(":productId",`${productId}`))
+    await request(URL_PRODUCT_ID.replace("{productID}", `${productId}`), MethodsEnum.DELETE);
+    await request<ProductType[]>(URL_PRODUCT, MethodsEnum.GET, setProducts);
+  };
   return {
     handleOnClickInsert,
     onSearch,
     setProductsFiltered,
     productsFiltered,
     handelDeleteProduct,
+    handelEditProduct,
   };
 };

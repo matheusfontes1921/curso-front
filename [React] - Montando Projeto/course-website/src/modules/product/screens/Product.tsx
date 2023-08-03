@@ -33,7 +33,7 @@ const listBreadcrumb: ListBreadcrumb[] = [
 ];
 
 const Product = () => {
-  const { handleOnClickInsert, handelDeleteProduct, onSearch, setProductsFiltered, productsFiltered } = useProduct();
+  const { handleOnClickInsert, handelEditProduct, handelDeleteProduct, onSearch, setProductsFiltered, productsFiltered } = useProduct();
   const columns: ColumnsType<ProductType> = useMemo(
     () => [
       {
@@ -65,7 +65,12 @@ const Product = () => {
         title: "Action",
         dataIndex: "",
         key: "x",
-        render: (_, product) => <a onClick={() => handelDeleteProduct(product.id)}>Deletar</a>,
+        render: (_, product) => (
+          <>
+            <a onClick={() => handelEditProduct(product.id)}>Editar</a>
+            <a onClick={() => handelDeleteProduct(product.id)}>Deletar</a>
+          </>
+        ),
       },
     ],
     [],

@@ -1,18 +1,23 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { connectionAPIPost } from "../../../shared/functions/connection/connectionAPI";
-import { URL_PRODUCT } from "../../../shared/constants/urls";
+import { URL_PRODUCT, URL_PRODUCT_ID } from "../../../shared/constants/urls";
 import { ProductRoutesEnum } from "../routes";
 import { InsertProduct } from "../../../shared/dtos/InsertProduct.dto";
-import {useNavigate} from "react-router-dom";
-import {useGlobalContext} from "../../../shared/hooks/useGlobalContext";
-import {useGlobalReducer} from "../../../store/reducers/globalReducer/useGlobalReducer";
+import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
+import { useGlobalReducer } from "../../../store/reducers/globalReducer/useGlobalReducer";
+import { useProductReducer } from "../../../store/reducers/productReducer/useProductReducer";
+import { useRequests } from "../../../shared/hooks/useRequests";
+import { MethodsEnum } from "../../../shared/enums/methods.enum";
 /* ideia de tirar os hooks é para tirar a logica de outras classes e
 facilitar os testes unitarios
  */
-export const useInsertProduct = () => {
+export const useInsertProduct = (productId?: string) => {
   const navigate = useNavigate();
+  const { product: productReducer, setProduct: setProductReducer } = useProductReducer();
   const { setNotification } = useGlobalReducer();
   const [loading, setLoading] = useState(false);
+  const { request } = useRequests();
   const [disableButton, setDisableButton] = useState(true);
   const [product, setProduct] = useState<InsertProduct>({
     name: "",
@@ -30,7 +35,31 @@ export const useInsertProduct = () => {
     } else {
       setDisableButton(true);
     }
-  },[product])
+  }, [product]);
+  useEffect(() => {
+    if (productId) {
+      setProductReducer(undefined);
+      request(
+        URL_PRODUCT_ID.replace("{productId}", `${productId}`),
+        MethodsEnum.GET,
+        setProductReducer,
+      );
+    }
+  }, [productId]);
+  useEffect(() => {
+    if (productReducer) {
+      setProduct({
+        name: productReducer.name,
+        price: productReducer.price,
+        image: productReducer.image,
+        weight: productReducer.weight,
+        lenght: productReducer.lenght,
+        width: productReducer.width,
+        height: productReducer.height,
+        diameter: productReducer.diameter,
+      });
+    }
+  }, [productReducer]);
   const onChangeInput = (
     event: React.ChangeEvent<HTMLInputElement>,
     nameObject: string,

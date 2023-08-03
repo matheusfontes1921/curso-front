@@ -8,7 +8,7 @@ import Input from "../../../shared/input/input/Input";
 import Button from "../../../shared/button/button/Button";
 import Select from "../../../shared/input/select/Select";
 import { DisplayFlex, DisplayFlexJustifyRight } from "../../login/components/styles/display.style";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import InputMoney from "../../../shared/input/inputMoney/InputMoney";
 import { useInsertProduct } from "../hooks/useInsertProduct";
 import { useCategory } from "../../category/hooks/useCategory";
@@ -22,10 +22,11 @@ const ProductInsert = () => {
     onChangeInput,
     handleOnChangeSelect,
     product,
-  } = useInsertProduct();
+  } = useInsertProduct(productId);
   const { categories, setCategories } = useCategory();
   const { request } = useRequests();
   const navigate = useNavigate();
+  const { productId } = useParams<{ productId: string }>();
 
   const handleOnClickCancel = () => {
     navigate(ProductRoutesEnum.PRODUCT);
