@@ -8,6 +8,7 @@ import ListOrderProduct from "../components/ListOrderProduct";
 import {inserMaskForCpf} from "../../../shared/functions/cpf";
 import {insertMaskForPhone} from "../../../shared/functions/phone";
 import {insertMaskForCep} from "../../../shared/functions/address";
+import Load from "../../../shared/loading/Load";
 const OrderDetail = () => {
   const { orderId } = useParams<{ orderId: string }>();
   const { order, loading } = useOrderDetail(orderId);
@@ -28,7 +29,7 @@ const OrderDetail = () => {
     >
       {!order || loading ? (
         <div>
-          <Spin size="large" />
+          <Load size="large" />
         </div>
       ) : (
         <>

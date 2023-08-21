@@ -16,11 +16,15 @@ import { useNavigate } from "react-router-dom";
 import { ProductRoutesEnum } from "../routes";
 import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
 import { LimitedContainer } from "../../login/components/styles/limited.style";
-import { DisplayFlexJustifyBetween } from "../../login/components/styles/display.style";
+import {
+  DisplayFlex,
+  DisplayFlexJustifyBetween,
+} from "../../login/components/styles/display.style";
 import { useAppSelector } from "../../../store/hooks";
 import { setProductsAction } from "../../../store/reducers/productReducer";
 import { useProductReducer } from "../../../store/reducers/productReducer/useProductReducer";
 import { useProduct } from "../hooks/useProduct";
+import {DeleteOutlined, EditOutlined, SearchOutlined} from "@ant-design/icons";
 const { Search } = Input;
 
 const listBreadcrumb: ListBreadcrumb[] = [
@@ -33,7 +37,14 @@ const listBreadcrumb: ListBreadcrumb[] = [
 ];
 
 const Product = () => {
-  const { handleOnClickInsert, handelEditProduct, handelDeleteProduct, onSearch, setProductsFiltered, productsFiltered } = useProduct();
+  const {
+    handleOnClickInsert,
+    handelEditProduct,
+    handelDeleteProduct,
+    onSearch,
+    setProductsFiltered,
+    productsFiltered,
+  } = useProduct();
   const columns: ColumnsType<ProductType> = useMemo(
     () => [
       {
@@ -64,12 +75,23 @@ const Product = () => {
       {
         title: "Action",
         dataIndex: "",
+        width: 240,
         key: "x",
         render: (_, product) => (
-          <>
-            <a onClick={() => handelEditProduct(product.id)}>Editar</a>
-            <a onClick={() => handelDeleteProduct(product.id)}>Deletar</a>
-          </>
+          <LimitedContainer width={180}>
+            <DisplayFlex>
+              <Button
+                margin="0 16px"
+                onClick={() => handelEditProduct(product.id)}
+                icon={<EditOutlined />}
+              >
+                Editar
+              </Button>
+              <Button danger onClick={() => handelDeleteProduct(product.id)} icon={<DeleteOutlined />}>
+                Deletar
+              </Button>
+            </DisplayFlex>
+          </LimitedContainer>
         ),
       },
     ],

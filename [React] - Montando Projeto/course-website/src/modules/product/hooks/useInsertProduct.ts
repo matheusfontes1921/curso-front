@@ -16,6 +16,7 @@ export const useInsertProduct = (productId?: string) => {
   const navigate = useNavigate();
   const { product: productReducer, setProduct: setProductReducer } = useProductReducer();
   const { setNotification } = useGlobalReducer();
+  const [loadingProduct, setLoadingProduct] = useState(false);
   const [loading, setLoading] = useState(false);
   const { request, loading: loadingRequest } = useRequests();
   const [isEdit, setIsEditing] = useState(false);
@@ -28,7 +29,7 @@ export const useInsertProduct = (productId?: string) => {
     height: 0,
     width: 0,
     diameter: 0,
-  }
+  };
   const [disableButton, setDisableButton] = useState(true);
   const [product, setProduct] = useState<InsertProduct>(DEFAULT_PRODUCT);
   const handleOnClickCancel = () => {
@@ -42,14 +43,18 @@ export const useInsertProduct = (productId?: string) => {
     }
   }, [product]);
   useEffect(() => {
-    if (productId) {
-      setIsEditing(true);
-      setProductReducer(undefined);
-      request(
+    const findProduct = async () => {
+      setLoadingProduct(true);
+      await request(
         URL_PRODUCT_ID.replace("{productId}", `${productId}`),
         MethodsEnum.GET,
         setProductReducer,
       );
+      setLoadingProduct(false);
+    };
+    if (productId) {
+      setIsEditing(true);
+      findProduct();
     } else {
       setProductReducer(undefined);
       setProduct(DEFAULT_PRODUCT);
@@ -58,7 +63,7 @@ export const useInsertProduct = (productId?: string) => {
   useEffect(() => {
     setProductReducer(undefined);
     setProduct(DEFAULT_PRODUCT);
-  },[]);
+  }, []);
   useEffect(() => {
     if (productReducer) {
       setProduct({
@@ -97,9 +102,10 @@ export const useInsertProduct = (productId?: string) => {
         MethodsEnum.PUT,
         undefined,
         product,
+        "Produto modificado",
       );
     } else {
-      await request(URL_PRODUCT, MethodsEnum.POST, undefined, product);
+      await request(URL_PRODUCT, MethodsEnum.POST, undefined, product, "Produto criado");
     }
     navigate(ProductRoutesEnum.PRODUCT);
   };
@@ -112,6 +118,8 @@ export const useInsertProduct = (productId?: string) => {
     handleOnChangeSelect,
     isEdit,
     setIsEditing,
+    loadingProduct,
+    setLoadingProduct,
     loadingRequest,
     handleOnClickCancel,
   };

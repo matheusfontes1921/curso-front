@@ -18,6 +18,7 @@ import { useInsertProduct } from "../hooks/useInsertProduct";
 import { useCategory } from "../../category/hooks/useCategory";
 import { ProductInsertTestIdEnum } from "../productInsertTestIdEnum";
 import { Spin } from "antd";
+import Load from "../../../shared/loading/Load";
 
 const ProductInsert = () => {
   const {
@@ -30,6 +31,7 @@ const ProductInsert = () => {
     handleOnClickCancel,
     loadingRequest,
     isEdit,
+      loadingProduct,
   } = useInsertProduct(productId);
   const { categories, setCategories } = useCategory();
   const { request } = useRequests();
@@ -50,9 +52,9 @@ const ProductInsert = () => {
         },
       ]}
     >
-      {loadingRequest ? (
+      {loadingProduct ? (
         <DisplayFlexJustifyCenter>
-          <Spin size={"large"} />
+          <Load size={"large"} />
         </DisplayFlexJustifyCenter>
       ) : (
         <DisplayFlexJustifyCenter data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_CONTAINER}>
