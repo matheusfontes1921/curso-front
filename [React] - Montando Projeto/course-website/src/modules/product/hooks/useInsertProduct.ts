@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { connectionAPIPost } from "../../../shared/functions/connection/connectionAPI";
 import { URL_PRODUCT, URL_PRODUCT_ID } from "../../../shared/constants/urls";
 import { ProductRoutesEnum } from "../routes";
 import { InsertProduct } from "../../../shared/dtos/InsertProduct.dto";
 import { useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
 import { useGlobalReducer } from "../../../store/reducers/globalReducer/useGlobalReducer";
 import { useProductReducer } from "../../../store/reducers/productReducer/useProductReducer";
 import { useRequests } from "../../../shared/hooks/useRequests";

@@ -9,7 +9,7 @@ import ConnectionAPI, {
     connectionAPIPost,
     MethodType,
 } from '../functions/connection/connectionAPI';
-import { useGlobalContext } from './useGlobalContext';
+import { useGlobalContext } from '../useGlobalContext';
 import {FirstScreenRoutesEnum} from "../../modules/firstScreen/routes";
 import {useGlobalReducer} from "../../store/reducers/globalReducer/useGlobalReducer";
 import {Simulate} from "react-dom/test-utils";

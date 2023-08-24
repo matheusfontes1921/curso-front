@@ -1,10 +1,6 @@
-import { useGlobalContext } from "../../../shared/hooks/useGlobalContext";
-import { useDataContext } from "../../../shared/hooks/useDataContext";
-import { useEffect, useMemo, useState } from "react";
-import { useRequests } from "../../../shared/hooks/useRequests";
-import { MethodsEnum } from "../../../shared/enums/methods.enum";
+
+import { useMemo } from "react";
 import { ProductType } from "../../../shared/types/ProductType";
-import { URL_PRODUCT } from "../../../shared/constants/urls";
 import { ColumnsType } from "antd/es/table";
 import Table from "../../../shared/table/Table";
 import CategoryColumn from "../components/CategoryColumn";
@@ -12,17 +8,12 @@ import TooltipImage from "../components/TooltipImage";
 import { convertNumberToMoney } from "../../../shared/functions/money";
 import Screen from "../../../shared/screen/Screen";
 import { Button, Input } from "antd";
-import { useNavigate } from "react-router-dom";
-import { ProductRoutesEnum } from "../routes";
 import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
 import { LimitedContainer } from "../../login/components/styles/limited.style";
 import {
   DisplayFlex,
   DisplayFlexJustifyBetween,
 } from "../../login/components/styles/display.style";
-import { useAppSelector } from "../../../store/hooks";
-import { setProductsAction } from "../../../store/reducers/productReducer";
-import { useProductReducer } from "../../../store/reducers/productReducer/useProductReducer";
 import { useProduct } from "../hooks/useProduct";
 import {DeleteOutlined, EditOutlined, SearchOutlined} from "@ant-design/icons";
 const { Search } = Input;
@@ -80,11 +71,7 @@ const Product = () => {
         render: (_, product) => (
           <LimitedContainer width={180}>
             <DisplayFlex>
-              <Button
-                margin="0 16px"
-                onClick={() => handelEditProduct(product.id)}
-                icon={<EditOutlined />}
-              >
+              <Button onClick={() => handelEditProduct(product.id)} icon={<EditOutlined />}>
                 Editar
               </Button>
               <Button danger onClick={() => handelDeleteProduct(product.id)} icon={<DeleteOutlined />}>
