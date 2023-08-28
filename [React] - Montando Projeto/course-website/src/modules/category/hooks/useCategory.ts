@@ -4,11 +4,15 @@ import { useRequests } from "../../../shared/hooks/useRequests";
 import { URL_CATEGORIES } from "../../../shared/constants/urls";
 import { MethodsEnum } from "../../../shared/enums/methods.enum";
 import {useCategoryReducer} from "../../../store/reducers/categoryReducer/useCategoryReducer";
+import {CategoryRoutesEnum} from "../routes";
+import {useNavigate} from "react-router-dom";
 
 export const useCategory = () => {
   const { categories, setCategories } = useCategoryReducer();
+  const [categoryIdDelete setCategoryIdDelete] = useState<number | undefined>()
   const [categoriesFilter, setCategoriesFilter] = useState(categories);
   const { request } = useRequests();
+  const navigate = useNavigate();
   const handleOnChangeSearch = (value: string) => {
     if (!value) {
       setCategoriesFilter([...categories]);
@@ -18,6 +22,9 @@ export const useCategory = () => {
       ]);
     }
   };
+  const handleOnClickCategory = () => {
+    navigate(CategoryRoutesEnum.CATEGORY_INSERT);
+  };
   useEffect(() => {
     if (!categories || categories.length === 0) {
       request(URL_CATEGORIES, MethodsEnum.GET, setCategories);
@@ -26,8 +33,22 @@ export const useCategory = () => {
   useEffect(() => {
     setCategoriesFilter(categories);
   }, [categories]);
+  const handleOpenModalDelete = (categoryId: number) => {
+    setCategoryIdDelete(categoryId);
+  }
+  const handleCloseModalDelete = () => {
+    setCategoryIdDelete(undefined)
+  }
+  const handleConfirmDeleteCategory = () => {
+
+  }
   return {
-    categories,
+    categories: categoriesFilter,
     handleOnChangeSearch,
+    handleOnClickCategory,
+    openModalDelete: !!categoryIdDelete,
+    handleCloseModalDelete,
+    handleOpenModalDelete,
+    handleConfirmDeleteCategory,
   };
 };
