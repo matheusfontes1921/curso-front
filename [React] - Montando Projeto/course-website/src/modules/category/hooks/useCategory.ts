@@ -1,7 +1,7 @@
 import { useDataContext } from "../../../shared/hooks/useDataContext";
 import { useEffect, useState } from "react";
 import { useRequests } from "../../../shared/hooks/useRequests";
-import { URL_CATEGORIES } from "../../../shared/constants/urls";
+import {URL_CATEGORIES, URL_CATEGORIES_ID} from "../../../shared/constants/urls";
 import { MethodsEnum } from "../../../shared/enums/methods.enum";
 import {useCategoryReducer} from "../../../store/reducers/categoryReducer/useCategoryReducer";
 import {CategoryRoutesEnum} from "../routes";
@@ -39,8 +39,10 @@ export const useCategory = () => {
   const handleCloseModalDelete = () => {
     setCategoryIdDelete(undefined)
   }
-  const handleConfirmDeleteCategory = () => {
-
+  const handleConfirmDeleteCategory = async () => {
+    await request(URL_CATEGORIES_ID.replace("{categoryId}",`${categoryIdDelete}`),MethodsEnum.DELETE, undefined, undefined, "Categoria deletada com sucesso!");
+    request(URL_CATEGORIES, MethodsEnum.GET, setCategories);]
+    setCategoryIdDelete(undefined);
   }
   return {
     categories: categoriesFilter,
