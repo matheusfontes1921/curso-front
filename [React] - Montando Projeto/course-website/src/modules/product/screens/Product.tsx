@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { ProductType } from "../../../shared/types/ProductType";
 import { ColumnsType } from "antd/es/table";
 import Table from "../../../shared/table/Table";
@@ -6,7 +6,7 @@ import CategoryColumn from "../components/CategoryColumn";
 import TooltipImage from "../components/TooltipImage";
 import { convertNumberToMoney } from "../../../shared/functions/money";
 import Screen from "../../../shared/screen/Screen";
-import { Button, Input } from "antd";
+import { Button, Input, Modal } from "antd";
 import { ListBreadcrumb } from "../../../shared/breadcrumb/Breadcrumb";
 import { LimitedContainer } from "../../login/components/styles/limited.style";
 import {
@@ -15,6 +15,8 @@ import {
 } from "../../login/components/styles/display.style";
 import { useProduct } from "../hooks/useProduct";
 import { DeleteOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
+import { HeaderTestIdEnum } from "../../../shared/header/headerTestIdEnum";
+import { logout } from "../../../shared/functions/connection/auth";
 const { Search } = Input;
 
 const listBreadcrumb: ListBreadcrumb[] = [
@@ -28,9 +30,11 @@ const listBreadcrumb: ListBreadcrumb[] = [
 
 const Product = () => {
   const {
+    handleOpenModalDelete,
     handleOnClickInsert,
     handelEditProduct,
     handelDeleteProduct,
+    handleCloseModalDelete,
     onSearch,
     setProductsFiltered,
     productsFiltered,
@@ -90,6 +94,17 @@ const Product = () => {
 
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
+      <Modal
+        title={"Atenção"}
+        open={handleOpenModalDelete}
+        onOk={handelDeleteProduct}
+        onCancel={handleCloseModalDelete}
+        okText={"Sim"}
+        cancelText={"Cancelar"}
+      >
+        {" "}
+        Tem certeza que deseja ecxluir esse produto?
+      </Modal>
       <DisplayFlexJustifyBetween margin={"0 0 16px 0"}>
         <LimitedContainer width={240}>
           <Search placeholder="Buscar produto" onSearch={onSearch} enterButton />
