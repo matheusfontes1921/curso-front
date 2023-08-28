@@ -31,7 +31,7 @@ const ProductInsert = () => {
     handleOnClickCancel,
     loadingRequest,
     isEdit,
-      loadingProduct,
+    loadingProduct,
   } = useInsertProduct(productId);
   const { categories, setCategories } = useCategory();
   const { request } = useRequests();

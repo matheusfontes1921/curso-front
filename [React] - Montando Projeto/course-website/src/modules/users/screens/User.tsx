@@ -18,6 +18,7 @@ import { useMemo } from "react";
 import { UserTypeEnum } from "../../../shared/enums/userType.enum";
 import {useNavigate} from "react-router-dom";
 import {UserRoutesEnum} from "../routes";
+import Load from "../../../shared/loading/Load";
 const { Search } = Input;
 const columns: ColumnsType<UserType> = [
   {
@@ -73,7 +74,7 @@ const User = () => {
     >
       {loading ? (
         <DisplayFlexJustifyCenter>
-          <Spin size={"large"} />
+          <Load size={"large"} />
         </DisplayFlexJustifyCenter>
       ) : (
         <>

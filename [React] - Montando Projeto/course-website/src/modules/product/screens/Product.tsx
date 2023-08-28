@@ -1,4 +1,3 @@
-
 import { useMemo } from "react";
 import { ProductType } from "../../../shared/types/ProductType";
 import { ColumnsType } from "antd/es/table";
@@ -15,7 +14,7 @@ import {
   DisplayFlexJustifyBetween,
 } from "../../login/components/styles/display.style";
 import { useProduct } from "../hooks/useProduct";
-import {DeleteOutlined, EditOutlined, SearchOutlined} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
 const { Search } = Input;
 
 const listBreadcrumb: ListBreadcrumb[] = [
@@ -74,7 +73,11 @@ const Product = () => {
               <Button onClick={() => handelEditProduct(product.id)} icon={<EditOutlined />}>
                 Editar
               </Button>
-              <Button danger onClick={() => handelDeleteProduct(product.id)} icon={<DeleteOutlined />}>
+              <Button
+                danger
+                onClick={() => handelDeleteProduct(product.id)}
+                icon={<DeleteOutlined />}
+              >
                 Deletar
               </Button>
             </DisplayFlex>
