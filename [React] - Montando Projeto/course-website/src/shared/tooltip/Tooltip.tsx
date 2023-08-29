@@ -1,5 +1,6 @@
 import { ContainerExternal, ContainerTooltip } from "./Tooltip.style";
 import { Tooltip as TooltipAntD } from "antd";
+import {TooltipTestId} from "./__tests__/Tooltip.spec";
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -8,11 +9,15 @@ interface TooltipProps {
 }
 const Tooltip = ({ children, tooltip, title }: TooltipProps) => {
   if (title) {
-    <TooltipAntD title={title}>{children}</TooltipAntD>;
+    return (
+      <TooltipAntD title={title}>
+        {children}
+      </TooltipAntD>
+    );
   }
   return (
-    <ContainerTooltip>
-      <ContainerExternal>{tooltip}</ContainerExternal>
+    <ContainerTooltip data-testid={TooltipTestId.CONTAINER}>
+      <ContainerExternal data-testid={TooltipTestId.INFO}>{tooltip}</ContainerExternal>
       {children}
     </ContainerTooltip>
   );
