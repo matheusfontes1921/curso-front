@@ -44,7 +44,11 @@ export const useCategory = () => {
     request(URL_CATEGORIES, MethodsEnum.GET, setCategories);]
     setCategoryIdDelete(undefined);
   }
+  const handleGoToEditCategory = (categoryId: number) => {
+    navigate(CategoryRoutesEnum.CATEGORY_EDIT.replace(":categoryId",`${categoryId}`))
+  }
   return {
+    handleGoToEditCategory,
     categories: categoriesFilter,
     handleOnChangeSearch,
     handleOnClickCategory,

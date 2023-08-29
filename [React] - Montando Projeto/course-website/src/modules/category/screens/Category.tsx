@@ -46,7 +46,7 @@ const Category = () => {
         <LimitedContainer width={180}>
           <DisplayFlex>
             <LimitedContainer width={90}>
-              <Button onClick={() => null} icon={<EditOutlined />}>
+              <Button onClick={() => handleGoToEditCategory(category.id)} icon={<EditOutlined />}>
                 Editar
               </Button>
             </LimitedContainer>
@@ -72,6 +72,7 @@ const Category = () => {
     handleOpenModalDelete,
     openModalDelete,
     handleConfirmDeleteCategory,
+    handleGoToEditCategory,
   } = useCategory();
   const navigate = useNavigate();
 
