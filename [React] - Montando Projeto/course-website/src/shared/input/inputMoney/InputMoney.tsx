@@ -1,6 +1,7 @@
 import { InputProps } from "../input/Input";
 import Input from "../input/Input";
 import { useEffect, useState } from "react";
+import {InputMoneyTestIdEnum} from "./__tests__/InputMoney.spec";
 
 interface InputMoneyProps extends InputProps {
   value: number;
@@ -32,7 +33,7 @@ const InputMoney = ({ value, onChange, addonBefore = "R$", ...props }: InputMone
       },
     });
   };
-  return <Input addonBefore={addonBefore} value={value} onChange={handleOnChange} {...props} />;
+  return <Input data-testid={InputMoneyTestIdEnum.INPUT} addonBefore={addonBefore} value={value} onChange={handleOnChange} {...props} />;
 };
 
 export default InputMoney;
