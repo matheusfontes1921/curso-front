@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../hooks";
 import { CategoryType } from "../../../shared/types/CategoryType";
-import {setCategoriesAction, setCategoryAction} from "./index";
+import { setCategoriesAction, setCategoryAction } from "./index";
 
 export const useCategoryReducer = () => {
   const dispatch = useDispatch();
@@ -8,13 +8,13 @@ export const useCategoryReducer = () => {
   const setCategories = (currentCategories: CategoryType[]) => {
     dispatch(setCategoriesAction(currentCategories));
   };
-    const setCategory = (currentCategory: CategoryType) => {
-        dispatch(setCategoryAction(currentCategory));
-    };
+  const setCategory = (currentCategory: CategoryType) => {
+    dispatch(setCategoryAction(currentCategory));
+  };
   return {
     categories,
     setCategories,
-      category,
-      setCategory,
+    category,
+    setCategory,
   };
 };
